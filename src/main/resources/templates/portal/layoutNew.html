@@ -45,6 +45,29 @@
 </head>
 <body>
 <div id="fh5co-page">
+    <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
+    <aside id="fh5co-aside" role="complementary" class="border js-fullheight">
+
+        <h1 id="fh5co-logo"><img class="custom-logo avatar" th:src="@{/portal/images/logo1.png}"></h1>
+        <nav id="fh5co-main-menu" role="navigation">
+            <ul>
+                <li><a href="index.html">主页</a></li>
+                <li><a href="blog.html">归档</a></li>
+                <li><a href="portfolio.html">分类</a></li>
+                <li><a href="contact.html">留言</a></li>
+                <li><a href="/about/">关于我</a></li>
+            </ul>
+        </nav>
+
+        <div class="fh5co-footer">
+            <div class="cr" th:if="${#servletContext.getAttribute('paramMap')['powerby'] != null && #servletContext.getAttribute('paramMap')['powerby'] != ''}" th:text="${#servletContext.getAttribute('paramMap')['powerby']}">
+            </div>
+            <br>
+            <div class="cr" th:if="${#servletContext.getAttribute('paramMap')['record'] != null && #servletContext.getAttribute('paramMap')['record'] != ''}">
+                <a href="http://www.miitbeian.gov.cn/" target="_blank" th:text="${#servletContext.getAttribute('paramMap')['record']}"></a>
+            </div>
+        </div>
+    </aside>
     <div id="main" class="content" layout:fragment="content"></div>
 </div>
 
