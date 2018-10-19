@@ -314,7 +314,7 @@ public class PortalController {
         AboutMe aboutMe = this.aboutMeService.getAboutMe(1);
         model.addAttribute("aboutMe", aboutMe);
         model.addAttribute("md", MarkdownUtil.class);
-        return render(model, "portal/aboutMe");
+        return render(model, "portal/aboutMeNew");
     }
 
     private String render(Model model, String path) {
