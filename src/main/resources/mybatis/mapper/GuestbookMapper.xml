@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
         "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.extlight.mapper.GuestbookMapper">
+<mapper namespace="site.jsun999.mapper.GuestbookMapper">
 
-    <resultMap id="GuestbookMap" type="com.extlight.model.Guestbook">
+    <resultMap id="GuestbookMap" type="site.jsun999.model.Guestbook">
         <id column="id" property="id"/>
         <result column="nickname" property="nickname"/>
         <result column="img_url" property="imgUrl"/>
         <result column="content" property="content"/>
         <result column="create_time" property="createTime"/>
-        <collection property="replyList" column="id" select="com.extlight.mapper.GuestbookMapper.getByGuestbookId"/>
+        <collection property="replyList" column="id" select="site.jsun999.mapper.GuestbookMapper.getByGuestbookId"/>
     </resultMap>
 
     <select id="getList"  resultMap="GuestbookMap">
@@ -60,7 +60,7 @@
         SELECT count(*) FROM t_guestbook WHERE del_status = #{delStatus}
     </select>
 
-    <select id="getByNickname" parameterType="java.lang.String" resultType="com.extlight.model.Guestbook">
+    <select id="getByNickname" parameterType="java.lang.String" resultType="site.jsun999.model.Guestbook">
         SELECT
             g.id,
             g.nickname,

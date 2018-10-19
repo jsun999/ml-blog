@@ -35,6 +35,8 @@
     <link rel="stylesheet" th:href="@{/portal/css/flexslider.css}" type="text/css">
     <!-- Theme style  -->
     <link rel="stylesheet" th:href="@{/portal/css/style.css}" type="text/css">
+    <link th:href="@{/portal/css/font-awesome-4.7.0/css/font-awesome.min.css}" rel="stylesheet">
+    <!--<link rel="stylesheet" type="text/css" th:href="@{/portal/css/index.css}" media="all" />-->
     <!-- Modernizr JS -->
     <script th:src="@{/portal/js/modernizr-2.6.2.min.js}"></script>
     <!-- FOR IE9 below -->
@@ -51,10 +53,10 @@
         <h1 id="fh5co-logo"><img class="custom-logo avatar" th:src="@{/portal/images/logo1.png}"></h1>
         <nav id="fh5co-main-menu" role="navigation">
             <ul>
-                <li><a href="index.html">主页</a></li>
-                <li><a href="blog.html">归档</a></li>
-                <li><a href="portfolio.html">分类</a></li>
-                <li><a href="contact.html">留言</a></li>
+                <li><a href="/index/">主页</a></li>
+                <li><a href="/archives/">归档</a></li>
+                <li><a href="/categories/">分类</a></li>
+                <li><a href="/guestbook/">留言</a></li>
                 <li><a href="/about/">关于我</a></li>
             </ul>
         </nav>
@@ -62,9 +64,22 @@
         <div class="fh5co-footer">
             <div class="cr" th:if="${#servletContext.getAttribute('paramMap')['powerby'] != null && #servletContext.getAttribute('paramMap')['powerby'] != ''}" th:text="${#servletContext.getAttribute('paramMap')['powerby']}">
             </div>
-            <br>
             <div class="cr" th:if="${#servletContext.getAttribute('paramMap')['record'] != null && #servletContext.getAttribute('paramMap')['record'] != ''}">
                 <a href="http://www.miitbeian.gov.cn/" target="_blank" th:text="${#servletContext.getAttribute('paramMap')['record']}"></a>
+            </div>
+            <div class="socialize" data-aos="zoom-in">
+                <li th:if="${#servletContext.getAttribute('paramMap')['wb'] != null && #servletContext.getAttribute('paramMap')['wb'] !=''}">
+                    <a title="weibo" class="socialicon" th:href="${#servletContext.getAttribute('paramMap')['wb']}" target="_blank"><i class="fa fa-weibo" aria-hidden="true"></i></a>
+                </li>
+                <li class="wechat" th:if="${#servletContext.getAttribute('paramMap')['wx'] != null && #servletContext.getAttribute('paramMap')['wx'] != ''}">
+                    <a th:title="${#servletContext.getAttribute('paramMap')['wx']}" class="socialicon" href="javascript:void(0)" target="_blank"><i class="fa fa-weixin" aria-hidden="true"></i></a>
+                </li>
+                <li th:if="${#servletContext.getAttribute('paramMap')['qq'] != null && #servletContext.getAttribute('paramMap')['qq'] != ''}">
+                    <a th:title="${#servletContext.getAttribute('paramMap')['qq']}" class="socialicon" href="javascript:void(0)" target="_blank"><i class="fa fa-qq" aria-hidden="true"></i></a>
+                </li>
+                <li th:if="${#servletContext.getAttribute('paramMap')['github'] != null && #servletContext.getAttribute('paramMap')['github'] != ''}">
+                    <a title="github" class="socialicon" th:href="@{${#servletContext.getAttribute('paramMap')['github']}}" target="_blank"><i class="fa fa-github-alt" aria-hidden="true"></i></a>
+                </li>
             </div>
         </div>
     </aside>
