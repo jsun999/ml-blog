@@ -13,6 +13,6 @@
     </settings>
 
     <plugins>
-        <plugin interceptor="com.extlight.plugin.CustomInterceptor"></plugin>
+        <plugin interceptor="site.jsun999.plugin.CustomInterceptor"></plugin>
     </plugins>
 </configuration>
