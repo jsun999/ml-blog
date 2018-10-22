@@ -11,6 +11,12 @@
 *	Edit this section
 *
 * ======================================================= */
+
+html {
+  text-shadow: .01em .01em .01em #999!important;
+  font-family: Play,"Microsoft YaHei";
+}
+
 body {
   font-family: "Roboto", Arial, sans-serif;
   font-weight: 300;
@@ -19,6 +25,7 @@ body {
   color: rgba(0, 0, 0, 0.5);
   background: whitesmoke;
 }
+
 @media screen and (max-width: 992px) {
   body {
     font-size: 16px;
@@ -45,7 +52,7 @@ h1, h2, h3, h4, h5, h6 {
   color: #000;
   font-family: "Roboto", Arial, sans-serif;
   font-weight: 400;
-  margin: 0 0 30px 0;
+  margin: 0 0 15px 0;
 }
 
 figure {
@@ -840,8 +847,8 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
 }
 
 .fh5co-heading {
-  font-size: 18px;
-  margin-bottom: 2em;
+  font-size: 26px;
+  margin-bottom: 1em;
   font-weight: 500;
   text-transform: uppercase;
   letter-spacing: 2px;

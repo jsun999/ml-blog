@@ -87,14 +87,14 @@ public class PortalController {
     public String archive(Model model) throws Exception {
         List<Post> postList = this.postService.getArchiveList();
         model.addAttribute("pageInfo", this.getArchivePageVo(PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE, postList));
-        return render(model, "portal/archive");
+        return render(model, "portal/archiveNew");
     }
 
     @GetMapping(value = "/archives/page/{pageNum}/")
     public String archive(@PathVariable("pageNum") Integer pageNum, Model model) throws Exception {
         List<Post> postList = this.postService.getArchiveList();
         model.addAttribute("pageInfo", this.getArchivePageVo(pageNum, PageConstant.PAGE_SIZE, postList));
-        return render(model, "portal/archive");
+        return render(model, "portal/archiveNew");
     }
 
     /**
@@ -158,7 +158,7 @@ public class PortalController {
         model.addAttribute("next", next);
         model.addAttribute("md", MarkdownUtil.class);
 
-        return render(model, "portal/detail");
+        return render(model, "portal/detailNew");
     }
 
 
