@@ -11,12 +11,6 @@
 *	Edit this section
 *
 * ======================================================= */
-
-html {
-  text-shadow: .01em .01em .01em #999!important;
-  font-family: Play,"Microsoft YaHei";
-}
-
 body {
   font-family: "Roboto", Arial, sans-serif;
   font-weight: 300;
@@ -1182,3 +1176,8 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
 }
 
 /*# sourceMappingURL=style.css.map */
+
+html {
+  text-shadow: .01em .01em .01em #999!important;
+  font-family: Play,"Microsoft YaHei";
+}

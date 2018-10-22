@@ -145,6 +145,24 @@
 
 	};
 
+	var activeLi = function() {
+        if(window.location.href.search("index") !=-1){
+            $("#fh5co-main-menu li").eq(0).addClass("fh5co-active");
+        }
+		if(window.location.href.search("archives") !=-1){
+			$("#fh5co-main-menu li").eq(1).addClass("fh5co-active");
+		}
+        if(window.location.href.search("categories") !=-1){
+            $("#fh5co-main-menu li").eq(2).addClass("fh5co-active");
+        }
+        if(window.location.href.search("guestbook") !=-1){
+            $("#fh5co-main-menu li").eq(3).addClass("fh5co-active");
+        }
+        if(window.location.href.search("about") !=-1){
+            $("#fh5co-main-menu li").eq(4).addClass("fh5co-active");
+        }
+	}
+
 	// Document on load.
 	$(function(){
 		fullHeight();
@@ -152,6 +170,7 @@
 		burgerMenu();
 		mobileMenuOutsideClick();
 		sliderMain();
+        activeLi();
 	});
 
 
