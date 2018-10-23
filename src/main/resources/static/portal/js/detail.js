@@ -22,10 +22,10 @@
                 "success": function (resp) {
                     if (resp.code == 200) {
                         var pageInfo = resp.data;
-                        if (pageInfo.list.length > 0) {
+                        if (pageInfo.length > 0) {
                             var htmlArr = [];
-                            for (var i=0; i<pageInfo.list.length; i++) {
-                                var comment = pageInfo.list[i];
+                            for (var i=0; i<pageInfo.length; i++) {
+                                var comment = pageInfo[i];
                                 htmlArr.push("<div class='ml-content' aos='fade-up' aos-once='true' aos-delay='"+(i*100)+"'><div class='row'><div class='col-md-12 col-sm-12 col-xs-12'><div class='row comment-list'>");
                                 htmlArr.push("<div class='comment'><div class='comment-img'>");
                                 htmlArr.push("<img src='"+comment.imgUrl+"' alt='' >");

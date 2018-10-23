@@ -13,12 +13,10 @@ import site.jsun999.common.vo.Result;
 import site.jsun999.component.GeetestService;
 import site.jsun999.component.LuceneService;
 import site.jsun999.model.AboutMe;
+import site.jsun999.model.Comment;
 import site.jsun999.model.Guestbook;
 import site.jsun999.model.Post;
-import site.jsun999.service.AboutMeService;
-import site.jsun999.service.CategoryService;
-import site.jsun999.service.GuestbookService;
-import site.jsun999.service.PostService;
+import site.jsun999.service.*;
 import site.jsun999.web.exception.GlobalException;
 import com.github.pagehelper.PageInfo;
 import com.google.code.kaptcha.Constants;
@@ -49,7 +47,7 @@ public class PortalController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    private GuestbookService guestbookService;
+    private CommentService commentService;
     @Autowired
     private AboutMeService aboutMeService;
     @Autowired
@@ -213,48 +211,44 @@ public class PortalController {
      * @param model
      * @return
      */
-    @GetMapping("/guestbook/")
-    public String guestbook(Model model) throws Exception {
-        List<Guestbook> list = this.guestbookService.getListPyPage(0,1, PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE);
-        Integer totalCount = this.guestbookService.getTotalCount(0);
-        model.addAttribute("pageInfo", new PageInfo<>(list, 10));
-        model.addAttribute("totalCount",totalCount);
-        return render(model, "portal/guestbook");
-    }
-
-    @GetMapping("/guestbook/page/{pageNum}/")
-    public String guestbook(@PathVariable Integer pageNum, Model model) throws Exception {
-        List<Guestbook> list = this.guestbookService.getListPyPage(0,1, pageNum, PageConstant.PAGE_SIZE);
-        Integer totalCount = this.guestbookService.getTotalCount(0);
-        model.addAttribute("pageInfo", new PageInfo<>(list, 10));
-        model.addAttribute("totalCount",totalCount);
-        return render(model, "portal/guestbook");
-    }
+//    @GetMapping("/guestbook/")
+//    public String guestbook(Model model) throws Exception {
+//        List<Guestbook> list = this.guestbookervice.getListPyPage(0,1, PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE);
+//        Integer totalCount = this.guestbookervice.getTotalCount(0);
+//        model.addAttribute("pageInfo", new PageInfo<>(list, 10));
+//        model.addAttribute("totalCount",totalCount);
+//        return render(model, "portal/guestbook");
+//    }
+//
+//    @GetMapping("/guestbook/page/{pageNum}/")
+//    public String guestbook(@PathVariable Integer pageNum, Model model) throws Exception {
+//        List<Guestbook> list = this.guestbookervice.getListPyPage(0,1, pageNum, PageConstant.PAGE_SIZE);
+//        Integer totalCount = this.guestbookervice.getTotalCount(0);
+//        model.addAttribute("pageInfo", new PageInfo<>(list, 10));
+//        model.addAttribute("totalCount",totalCount);
+//        return render(model, "portal/guestbook");
+//    }
 
     /**
      * 留言板 发言
      *
-     * @param guestbook
+     * @param comment
      * @return
      */
-    @PostMapping("/guestbook")
+    @PostMapping("/postComment")
     @ResponseBody
-    public Result saveGuestbook(@Valid Guestbook guestbook, String captcha, HttpServletRequest request) throws Exception {
-
-        String capText = (String) request.getSession().getAttribute(Constants.KAPTCHA_SESSION_KEY);
-        if (StringUtils.isEmpty(capText)) {
-            throw new GlobalException(500, "验证码失效");
-        }
-
-        if (!capText.equals(captcha)) {
-            throw new GlobalException(500, "验证码不正确");
-        }
-
-        guestbook.setIp(IPUtil.getIpAddr(request));
-        String city = IPUtil.getCity(guestbook.getIp());
-        guestbook.setIpAddr(city == null ? "未知" : city);
-        this.guestbookService.save(guestbook);
+    public Result saveComment(@Valid Comment comment, HttpServletRequest request) throws Exception {
+        comment.setIp(IPUtil.getIpAddr(request));
+        String city = IPUtil.getCity(comment.getIp());
+        comment.setIpAddr(city == null ? "未知" : city);
+        this.commentService.save(comment);
         return Result.success();
+    }
+    @GetMapping("/commentList/{postId}/{pageNum}")
+    @ResponseBody
+    public Result getCommentByPostId(@PathVariable("postId") Integer postId , @PathVariable("pageNum") int pageNum){
+        List<Comment> postList = this.commentService.getByPostId(postId, pageNum, PageConstant.PAGE_SIZE);
+        return Result.success(postList);
     }
 
     /**
@@ -283,24 +277,24 @@ public class PortalController {
      * @param guestbook
      * @return
      */
-    @PostMapping("/guestbook-gt")
-    @ResponseBody
-    public Result saveGuestbookGt(@Valid Guestbook guestbook, HttpServletRequest request) throws Exception {
-
-        if (!ParamUtil.checkParameter(ParamConstant.GEETEST)) {
-            throw new GlobalException(500, "未配置极验参数");
-        }
-
-        if (!this.geetestService.verifyCaptcha(request)) {
-            throw new GlobalException(500, "验证错误");
-        }
-
-        guestbook.setIp(IPUtil.getIpAddr(request));
-        String city = IPUtil.getCity(guestbook.getIp());
-        guestbook.setIpAddr(city == null ? "未知" : city);
-        this.guestbookService.save(guestbook);
-        return Result.success();
-    }
+//    @PostMapping("/guestbook-gt")
+//    @ResponseBody
+//    public Result saveGuestbookGt(@Valid Guestbook guestbook, HttpServletRequest request) throws Exception {
+//
+//        if (!ParamUtil.checkParameter(ParamConstant.GEETEST)) {
+//            throw new GlobalException(500, "未配置极验参数");
+//        }
+//
+//        if (!this.geetestService.verifyCaptcha(request)) {
+//            throw new GlobalException(500, "验证错误");
+//        }
+//
+//        guestbook.setIp(IPUtil.getIpAddr(request));
+//        String city = IPUtil.getCity(guestbook.getIp());
+//        guestbook.setIpAddr(city == null ? "未知" : city);
+//        this.guestbookService.save(guestbook);
+//        return Result.success();
+//    }
 
     /**
      * 关于我
