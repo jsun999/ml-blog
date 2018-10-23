@@ -734,7 +734,7 @@ article p {
 .post {
     position: relative;
     max-width: 1000px;
-    margin: 0 auto 120px;
+    margin: 0 auto 20px;
     box-shadow: 1px 1px 58px 1px #e1dede;
     background-color:#fff;
 
@@ -784,4 +784,198 @@ h1.post_title {
     color: #A1A1A1;
     /*text-transform: uppercase;*/
     margin: 30px 0;
+}
+.post-other-info {
+    border-top: 1px dashed #ccc;
+    padding:2em 0;
+}
+.post-content a, .post-copyright a,.post-other-info a{
+    position: relative;
+    color:#777;
+    font-weight:600;
+    text-decoration: none;
+    display: inline-block;
+    transition: all .3s;
+}
+
+.post-content a:hover, .post-copyright a:hover,.post-other-info a:hover{
+    color:#66D37E;
+}
+
+.post-other-info a.prev:before {
+    position: absolute;
+    font-family:FontAwesome;
+    content: "\f177";
+    left: -10px;
+    transform: scale(0);
+    transition: all .2s;
+    color:#66D37E;
+}
+
+.post-other-info a.prev:hover {
+    margin-left: 20px;
+}
+
+.post-other-info a.prev:hover:before {
+    left:-20px;
+    transform: scale(1);
+}
+
+.post-other-info a.next:before {
+    position: absolute;
+    font-family:FontAwesome;
+    content: "\f178";
+    right: -10px;
+    transform: scale(0);
+    transition: all .2s;
+    color:#66D37E;
+}
+
+.post-other-info a.next:hover {
+    margin-right: 20px;
+}
+
+.post-other-info a.next:hover:before {
+    right:-20px;
+    transform: scale(1);
+}
+
+.comment-list {
+    position: relative;
+    margin-left: 2rem !important;
+}
+
+.comment {
+    position: relative;
+    margin: 15px 0;
+}
+
+.comment .comment-img {
+    float: left;
+    position: relative;
+    z-index: 1;
+    margin-left: -28px;
+}
+
+.comment .comment-img img {
+    max-width: 60px;
+}
+
+.comment-img + .comment-contents {
+    margin-left: 66px;
+}
+
+.comment .comment-author {
+    margin-bottom: 5px;
+}
+
+.comment .comment-date {
+    margin-bottom: 5px;
+}
+
+.comment-reply .panel-body textarea {
+    margin-bottom:10px;
+    border-bottom: 1px dashed #e1e1e1;
+}
+
+.comment-reply .panel-body input {
+    border: 0;
+}
+
+.comment-reply a {
+    font-size: 14px;
+}
+
+.ml-content .comment-body {
+    padding: 5px;
+    margin-bottom:10px;
+}
+
+.ml-content .comment-body-input {
+    border: 1px solid #eee;
+    padding: 10px 2px;
+}
+
+.ml-content .comment-body textarea {
+    margin-bottom:10px;
+    border-bottom: 1px dashed #e1e1e1;
+}
+
+.comment-reply .panel-body {
+    padding: 5px;
+    margin-bottom:10px;
+}
+
+.comment-reply .panel-body-input {
+    border: 1px solid #eee;
+    padding: 10px 2px;
+}
+
+.comment-reply .panel-body {
+    width: 95%;
+}
+
+.comment-reply .panel-body button ,.ml-content .comment-body button{
+    padding: 5px 15px;
+}
+.ml-content {
+    position: relative;
+    background-color: #fff;
+    padding: 2em;
+    margin-top: 1em;
+}
+
+.ml-content-title {
+    margin-bottom:10px;
+}
+
+.ml-content .post {
+    margin-bottom: 2em;
+}
+
+.ml-content .post-info {
+    transition: all 1s;
+    border:1px solid #eee;
+    max-height: 320px;
+}
+
+.post-info .post-bg {
+    position: relative;
+    color: #fff;
+    text-align: center;
+    background-color: #000;
+}
+
+.ml-content .post-bg a div.category {
+    position: absolute;
+    left:0;
+    right:0;
+    top:30%;
+    opacity: 0;
+    transition: all .2s;
+    color:#fff;
+}
+
+.ml-content .post-bg a div.tags {
+    position: absolute;
+    left:0;
+    right:0;
+    bottom:30%;
+    opacity: 0;
+    transition: all .2s;
+    color:#fff;
+}
+
+.ml-content .post-bg a:hover {
+    opacity: .7;
+}
+
+.ml-content .post-bg:hover div.category {
+    top:35%;
+    opacity: 1;
+}
+
+.ml-content .post-bg:hover div.tags {
+    bottom:35%;
+    opacity: 1;
 }

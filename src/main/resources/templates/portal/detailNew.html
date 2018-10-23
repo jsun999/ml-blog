@@ -33,17 +33,19 @@
 									</span>
 								</header>
 								<div class="" th:utext="${md.md2html(post.content)}" ></div>
-								<ul class="copyright-declare">
-									<li>
-										<strong>本文作者:</strong> [[${#servletContext.getAttribute('paramMap')['author']}]]
-									</li>
-									<li>
-										<strong>本文链接:</strong> <a id="shareUrl" th:href="@{${#servletContext.getAttribute('paramMap')['homePage']} + '/'+${post.postUrl}}" target="_blank" th:text="${#servletContext.getAttribute('paramMap')['homePage']+'/'+post.postUrl}"></a>
-									</li>
-									<li>
-										<strong>版权声明:</strong>  本博客所有文章除特别声明外均为原创，采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请在文章开头明显位置注明原文链接和作者等相关信息，明确指出修改（如有），并通过 E-mail 等方式告知，谢谢合作！
-									</li>
-								</ul>
+								<div class="alert alert-info">
+									<ul class="copyright-declare">
+										<li>
+											<strong>本文作者:</strong> [[${#servletContext.getAttribute('paramMap')['author']}]]
+										</li>
+										<li>
+											<strong>本文链接:</strong> <a id="shareUrl" th:href="@{${#servletContext.getAttribute('paramMap')['homePage']} + '/'+${post.postUrl}}" target="_blank" th:text="${#servletContext.getAttribute('paramMap')['homePage']+'/'+post.postUrl}"></a>
+										</li>
+										<li>
+											<strong>版权声明:</strong>  本博客所有文章除特别声明外均为原创，采用<a href="https://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">CC BY-NC-SA 4.0</a> 许可协议。转载请在文章开头明显位置注明原文链接和作者等相关信息，明确指出修改（如有），并通过 E-mail 等方式告知，谢谢合作！
+										</li>
+									</ul>
+								</div>
 								<div class="meta split split--responsive cf">
 									<div class="split__title">
 										<time datetime="${#dates.format(post.createTime,'yyyy/MM/dd')}">[[${#dates.format(post.publishDate,'yyyy/MM/dd')}]]</time>
@@ -72,8 +74,53 @@
 										document.getElementsByTagName('head')[0].appendChild(document.createElement('script')).src='/portal/js/share/api/js/share.js?cdnversion='+~(-new Date()/36e5)
 									</script>
 								</div>
+								<footer class="post-other-info">
+									<div data-aos="slide-right" data-aos-delay="1.5s" th:if="${previous!=null}">
+										<a th:href="${'/' + previous.postUrl}" class="prev pull-left">上一篇：《[[${previous.title}]]》</a>
+									</div>
+									<div data-aos="slide-left" data-aos-delay="1.5s" th:if="${next!=null}">
+										<a th:href="${'/' + next.postUrl}" class="next pull-right">下一篇：《[[${next.title}]]》</a>
+									</div>
+								</footer>
+
 							</section>
 						</article>
+						<!-- 评论 -->
+						<div class="post post_content ml-content" id="commentContainer">
+							<div class="comment-title">
+								<h3>评论</h3>
+							</div>
+							<div class="comment-body">
+								<div id="comment-form-msg"></div>
+								<div class="comment-body">
+									<div class="comment-body-msg"></div>
+									<div class="comment-body-input">
+										<textarea class="form-control" name="content" rows="5" placeholder="说些内容吧~"  style="resize:none" ></textarea>
+										<form class="form-inline">
+											<div class="form-group">
+												<span style="display: inline-block;padding-left: 10px"><img src="/portal/images/guestbook_2.jpg" width="32" height="32"></span>
+											</div>
+											<div class="form-group">
+												<input type="text" class="form-control" placeholder="昵称（必填）">
+											</div>
+											<div class="form-group">
+												<input type="email" class="form-control" placeholder="邮箱（必填）">
+											</div>
+											<div class="form-group">
+												<input type="text" class="form-control"  placeholder="主页（选填）">
+											</div>
+											<input type="hidden" id="postId" value="69">
+											<div class="form-group text-center">
+												<button type="button" class="btn btn-primary reply-btn"><i class="fa fa-paper-plane"></i>&nbsp;&nbsp;回复</button>
+											</div>
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+
+						<!-- 评论列表 -->
+						<div id="commentListContainer"></div>
 					</div>
 					<div id="panel" th:if="${#strings.isEmpty(#servletContext.getAttribute('paramMap')['changyan_app_id']) eq false}">
 						<div class="comment-area" style="background: #fafafa">
@@ -91,24 +138,6 @@
 									$("#feedAv").hide();
 								},10);
 							</script>
-						</div>
-					</div>
-					<div class="navpost-part">
-						<div id="NextPrevPosts">
-							<div class="prev" data-aos="slide-right" data-aos-delay="1.5s" th:if="${previous!=null}">
-								<div class="arrow"><i class="iconfont">&#xe625;</i></div>
-								<div class="preview">
-									<div class="pull-left featuredImg" th:style="'background-image:url(/portal/images/random/' + ${previous.imgUrl } + ');'"></div>
-									<a class="pull-left preview-content bold" th:href="${'/' + previous.postUrl}"><span>《[[${previous.title}]]》</span></a>
-								</div>
-							</div>
-							<div class="next" data-aos="slide-left" data-aos-delay="1.5s" th:if="${next!=null}">
-								<div class="arrow"><i class="iconfont">&#xe623;</i></div>
-								<div class="preview">
-									<div class="pull-right featuredImg" th:style="'background-image:url(/portal/images/random/' + ${next.imgUrl } +');'"></div>
-									<a class="pull-right preview-content bold" th:href="${'/' + next.postUrl}"><span>《[[${next.title}]]》</span></a>
-								</div>
-							</div>
 						</div>
 					</div>
 					<script type="text/javascript">
