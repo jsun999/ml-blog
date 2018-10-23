@@ -13,30 +13,30 @@ body {
   -moz-font-feature-settings: "liga" on
 }
 
-body,
-h1,
-h2,
-h3,
-h4,
-h5,
-h6,
-blockquote,
-p,
-div,
-span,
-ul,
-ol,
-li,
-form,
-input,
-textarea,
-br,
-button {
-  margin: 0;
-  padding: 0;
-  border: 0;
-  font-size: 100%
-}
+/*body,*/
+/*h1,*/
+/*h2,*/
+/*h3,*/
+/*h4,*/
+/*h5,*/
+/*h6,*/
+/*blockquote,*/
+/*p,*/
+/*div,*/
+/*span,*/
+/*ul,*/
+/*ol,*/
+/*li,*/
+/*form,*/
+/*input,*/
+/*textarea,*/
+/*br,*/
+/*button {*/
+  /*margin: 0;*/
+  /*padding: 0;*/
+  /*border: 0;*/
+  /*font-size: 100%*/
+/*}*/
 
 @font-face {
   font-family: 'icomoon';
