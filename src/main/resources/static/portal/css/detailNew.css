@@ -979,3 +979,22 @@ h1.post_title {
     bottom:35%;
     opacity: 1;
 }
+.comment-form-control {
+    border-radius: 0;
+    outline-color: invert ;
+    outline-style: none ;
+    outline-width: 0px ;
+    border: none ;
+    border-style: none ;
+    text-shadow: none ;
+    -webkit-appearance: none ;
+    -webkit-user-select: text ;
+    outline-color: transparent ;
+    box-shadow: none;
+
+}
+
+.comment-form-control:focus {
+    border-color: #66D37E;
+    box-shadow:none;
+}

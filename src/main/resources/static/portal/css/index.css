@@ -1723,7 +1723,7 @@ input[type="search"]::-webkit-search-decoration {
 	z-index: 1;
 	top: 0;
 	left: 0;
-	background: -webkit-linear-gradient(right, rgba(255, 255, 255, 0) 0%, rgba(105, 105, 105, 0.1)) 100%);
+	background: -webkit-linear-gradient(right, rgba(255, 255, 255, 0) 0%, rgba(105, 105, 105, 0.1)) 100%;);
 	background: linear-gradient(to left, rgba(255, 255, 255, 0) 0%, rgba(105, 105, 105, 0.1) 100%)
 }
 
