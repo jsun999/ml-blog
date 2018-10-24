@@ -247,8 +247,41 @@ public class PortalController {
     @GetMapping("/commentList/{postId}/{pageNum}")
     @ResponseBody
     public Result getCommentByPostId(@PathVariable("postId") Integer postId , @PathVariable("pageNum") int pageNum){
-        List<Comment> postList = this.commentService.getByPostId(postId, pageNum, PageConstant.PAGE_SIZE);
-        return Result.success(postList);
+        List<Comment> commentList = this.commentService.getByPostId(postId, pageNum, PageConstant.PAGE_SIZE);
+        return Result.success(this.getPageVo(pageNum, PageConstant.PAGE_SIZE, commentList));
+    }
+
+    private PageVo<List<Comment>> getPageVo(Integer pageNum, Integer pageSize, List<Comment> commentList) {
+        if (commentList.isEmpty()) {
+            return new PageVo(pageNum, pageSize, commentList.size(), null);
+        }
+
+        // 逻辑分页
+        int start = (pageNum - 1) * pageSize;
+
+        if (start > commentList.size()) {
+            return new PageVo(pageNum, pageSize, commentList.size(), null);
+        }
+
+        int end;
+        end = getEnd(pageSize, start, commentList.size());
+        List<Comment> subList = commentList.subList(start, end);
+        return new PageVo(pageNum, pageSize, commentList.size(), subList);
+    }
+
+    private int getEnd(Integer pageSize, int start, int size) {
+        int end;
+        if ((size - start) > pageSize) {
+            end = start + pageSize;
+        } else {
+            int tmp = (size - start);
+            if (tmp % pageSize == 0) {
+                end = start + pageSize;
+            } else {
+                end = start + tmp;
+            }
+        }
+        return end;
     }
 
     /**
@@ -330,16 +363,7 @@ public class PortalController {
         }
 
         int end;
-        if ((postList.size() - start) > pageSize) {
-            end = start + pageSize;
-        } else {
-            int tmp = (postList.size() - start);
-            if (tmp % pageSize == 0) {
-                end = start + pageSize;
-            } else {
-                end = start + tmp;
-            }
-        }
+        end = getEnd(pageSize, start, postList.size());
 
         List<Post> subList = postList.subList(start, end);
 

@@ -22,11 +22,11 @@
                 "success": function (resp) {
                     if (resp.code == 200) {
                         var pageInfo = resp.data;
-                        if (pageInfo.length > 0) {
+                        if (pageInfo.data.length > 0) {
                             var htmlArr = [];
-                            for (var i=0; i<pageInfo.length; i++) {
-                                var comment = pageInfo[i];
-                                htmlArr.push("<div class='ml-content' aos='fade-up' aos-once='true' aos-delay='"+(i*100)+"'><div class='row'><div class='col-md-12 col-sm-12 col-xs-12'><div class='row comment-list'>");
+                            for (var i=0; i<pageInfo.data.length; i++) {
+                                var comment = pageInfo.data[i];
+                                htmlArr.push("<div class='post post_content ml-content' aos='fade-up' aos-once='true' aos-delay='"+(i*100)+"'><div class='row'><div class='col-md-12 col-sm-12 col-xs-12'><div class='row comment-list'>");
                                 htmlArr.push("<div class='comment'><div class='comment-img'>");
                                 htmlArr.push("<img src='"+comment.imgUrl+"' alt='' >");
                                 htmlArr.push("</div>");
@@ -46,19 +46,19 @@
                                 htmlArr.push("<div class='panel-body'>");
                                 htmlArr.push("<div class='comment-body-msg'></div>");
                                 htmlArr.push("<div class='comment-body-input'>");
-                                htmlArr.push("<textarea class='form-control' name='content' id='' rows='5' placeholder='说些内容吧~' style='resize: none;'></textarea>");
+                                htmlArr.push("<textarea class='comment-form-control form-control' name='content' id='' rows='5' placeholder='说些内容吧~' style='resize: none;'></textarea>");
                                 htmlArr.push("<form class='form-inline'>");
                                 htmlArr.push("<div class='form-group'>");
-                                htmlArr.push("<span style='display: inline-block;padding-left: 10px'><img src='/portal/images/guestbook_default.jpg' width='32' height='32'></span>");
+                                htmlArr.push("<span style='display: inline-block;padding-left: 10px'><img src='/portal/images/guestbook_2.jpg' width='32' height='32'></span>");
                                 htmlArr.push("</div>");
                                 htmlArr.push("<div class='form-group'>");
-                                htmlArr.push("<input type='text' class='form-control' placeholder='*昵称'>");
+                                htmlArr.push("<input type='text' class='form-control' placeholder='昵称(必填)'>");
                                 htmlArr.push("</div>");
                                 htmlArr.push("<div class='form-group'>");
-                                htmlArr.push("<input type='email' class='form-control' placeholder='*邮箱'>");
+                                htmlArr.push("<input type='email' class='form-control' placeholder='邮箱(必填)'>");
                                 htmlArr.push("</div>");
                                 htmlArr.push("<div class='form-group'>");
-                                htmlArr.push( "<input type='text' class='form-control'  placeholder='主页'>");
+                                htmlArr.push("<input type='text' class='form-control'  placeholder='主页(选填)'>");
                                 htmlArr.push("</div>");
                                 htmlArr.push("<div class='form-group text-center'>");
                                 htmlArr.push("<button type='button' class='btn btn-primary reply-btn' id='reply_"+comment.id+"'><i class='fa fa-paper-plane'></i>&nbsp;&nbsp;回复</button>");
@@ -143,14 +143,15 @@
                if (idStr && idStr.indexOf("reply_") > -1) {
                    commentId = idStr.split("_")[1];
                }
-
+               var imgUrl = "/portal/images/guestbook_" + (Math.floor(Math.random() * 5) + 1) + ".jpg";
                var parameter = {
                    "nickname": commentManager.checkSafe(nickname),
                    "content": commentManager.checkSafe(content),
                    "email": commentManager.checkSafe(email),
                    "homeUrl": commentManager.checkSafe(homeUrl),
                    "postId": $("#postId").val(),
-                   "commentId": commentId
+                   "commentId": commentId,
+                   "imgUrl": imgUrl
                };
 
                $.post("/postComment",parameter,function(resp) {
@@ -185,8 +186,8 @@
     var flag = false;
     var commentContainer = $("#commentContainer");
     $(window).scroll(function(e) {
-       var scrollTop = $(this).scrollTop();
-       if (!flag && (scrollTop > parseInt(commentContainer.offset().top + commentContainer.height()- 850))) {
+        var scrollTop = $(this).scrollTop();
+        if (!flag && (scrollTop > parseInt(commentContainer.offset().top + commentContainer.height()- 850))) {
             // 获取评论列表
             commentManager.getCommentList();
             flag = true;

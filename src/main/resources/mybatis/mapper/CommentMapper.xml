@@ -56,7 +56,11 @@
         WHERE
             g.post_id = #{postId}
         AND
+            g.comment_id = 0
+        AND
             g.del_status = 0
+        ORDER BY
+            g.create_time DESC
     </select>
 
     <select id="getByCommentId"  parameterType="java.lang.Integer" resultMap="CommentMap">

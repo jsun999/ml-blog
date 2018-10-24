@@ -724,7 +724,7 @@ article p {
 .post_content {
     margin: 0 auto;
     line-height: 1.75;
-    max-width: 800px;
+    max-width: 1000px;
     position: relative
 }
 .post_content {
@@ -733,7 +733,7 @@ article p {
 
 .post {
     position: relative;
-    max-width: 1000px;
+    max-width: 1100px;
     margin: 0 auto 20px;
     box-shadow: 1px 1px 58px 1px #e1dede;
     background-color:#fff;
@@ -888,7 +888,6 @@ h1.post_title {
 
 .ml-content .comment-body {
     padding: 5px;
-    margin-bottom:10px;
 }
 
 .ml-content .comment-body-input {
@@ -921,7 +920,7 @@ h1.post_title {
 .ml-content {
     position: relative;
     background-color: #fff;
-    padding: 2em;
+    padding: 2em 50px;
     margin-top: 1em;
 }
 

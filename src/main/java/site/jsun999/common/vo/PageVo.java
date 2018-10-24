@@ -3,7 +3,7 @@ package site.jsun999.common.vo;
 /**
  *
  */
-public class PageVo {
+public class PageVo<T> {
 
     private int pageNum;
 
@@ -13,7 +13,7 @@ public class PageVo {
 
     private int pages;
 
-    private Object data;
+    private T data;
 
     private int[] navigatepageNums;
 
@@ -23,7 +23,7 @@ public class PageVo {
 
     private boolean hasNextPage;
 
-    public PageVo(int pageNum, int pageSize, int total, Object data) {
+    public PageVo(int pageNum, int pageSize, int total, T data) {
         this.pageNum = pageNum;
         this.pageSize = pageSize;
         this.total = total;
