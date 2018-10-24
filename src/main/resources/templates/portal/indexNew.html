@@ -57,17 +57,19 @@
         <div class="post-Archive">
             <div id="archives" class="fh5co-narrow-content">
                 <div th:if="${pageInfo.total > 0}">
-                    <h4 class="col-padding animate-box" data-animate-effect="fadeInLeft">近期博客</h4>
-                    <div class="col-md-3 col-sm-6 col-padding animate-box" data-animate-effect="fadeInLeft" th:each="vo:${pageInfo.data}">
-                        <div class="blog-entry" >
-                            <a th:href="@{'/'+${vo.postUrl}}" class="blog-img"><img th:src="@{/portal/images/img-1.jpg}" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"></a>
-                            <div class="desc">
-                                <a th:href="@{'/'+${vo.postUrl}}">[[${vo.title}]]</a>
-                                <span class="time">[[${#dates.format(vo.publishDate, 'yyyy-MM-dd')}]]</span>
-                                <a th:href="@{'/'+${vo.postUrl}}" class="lead">Read More <i class="icon-arrow-right3"></i></a>
+					<div class='archive-title row row-bottom-padded-md'>
+                        <h4 class="col-padding animate-box" data-animate-effect="fadeInLeft">近期博客</h4>
+                        <div class="col-md-3 col-sm-6 col-padding animate-box" data-animate-effect="fadeInLeft" th:each="vo:${pageInfo.list}">
+                            <div class="blog-entry" >
+                                <a th:href="@{'/'+${vo.postUrl}}" class="blog-img"><img th:src="@{/portal/images/img-1.jpg}" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"></a>
+                                <div class="desc">
+                                    <a th:href="@{'/'+${vo.postUrl}}">[[${vo.title}]]</a>
+                                    <span class="time">[[${#dates.format(vo.createTime, 'yyyy-MM-dd')}]]</span>
+                                    <a th:href="@{'/'+${vo.postUrl}}" class="lead">Read More <i class="icon-arrow-right3"></i></a>
+                                </div>
                             </div>
                         </div>
-                    </div>
+					</div>
                     <nav class="pagination js-pagination" th:if="${pageInfo.total > 0}">
 								<span th:if="${pageInfo.hasPreviousPage}">
 									<a class="prev page-numbers" th:href="@{${pageInfo.pageNum-1}s == 1 ? '/archives/' : '/archives/page/' + ${pageInfo.pageNum-1}+'/'}" ><strong>←</strong></a>
@@ -77,7 +79,7 @@
 										<a href="javascript:void(0)" th:text="${pageNum}" class="page-numbers current"></a>
 									</span>
 									<span th:if="${pageNum != pageInfo.pageNum}">
-										<a th:href="@{${pageNum} == 1 ? '/archives/' : '/archives/page/' + ${pageNum}+'/'}" th:text="${pageNum}" class="page-numbers"></a>
+										<a th:href="@{${pageNum} == 1 ? '/index' : '/page/' + ${pageNum}+'/'}" th:text="${pageNum}" class="page-numbers"></a>
 									</span>
 								</span>
                         <span th:if="${pageInfo.hasNextPage}">

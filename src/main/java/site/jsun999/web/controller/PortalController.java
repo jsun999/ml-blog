@@ -63,14 +63,16 @@ public class PortalController {
     @GetMapping(value = {"/", "/index.html","index"})
     public String index(Model model) throws Exception {
         List<Post> postList = this.postService.getListPyPage(1, PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE);
-        model.addAttribute("pageInfo", this.getPageVo(PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE, postList));
+//        model.addAttribute("pageInfo", this.getPageVo(PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE, postList));
+        model.addAttribute("pageInfo", new PageInfo<>(postList, 10));
         return render(model, "portal/indexNew");
     }
 
     @GetMapping("/page/{pageNum}/")
     public String page(@PathVariable Integer pageNum, Model model) throws Exception {
         List<Post> postList = this.postService.getListPyPage(1, pageNum, PageConstant.PAGE_SIZE);
-        model.addAttribute("pageInfo", this.getPageVo(PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE, postList));
+        model.addAttribute("pageInfo", new PageInfo<>(postList, 10));
+//        model.addAttribute("pageInfo", this.getPageVo(PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE, postList));
         return render(model, "portal/indexNew");
     }
 

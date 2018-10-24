@@ -1283,3 +1283,8 @@ body::-webkit-scrollbar-track {/*滚动条里面轨道*/
   box-shadow: 1px 1px 25px 1px #8d9cac;
 }
 
+@media screen and (min-width: 992px) {
+  .col-md-3 {
+    width: 20%;
+  }
+}
