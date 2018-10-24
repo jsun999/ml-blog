@@ -185,14 +185,28 @@
 
     var flag = false;
     var commentContainer = $("#commentContainer");
-    $(window).scroll(function(e) {
-        var scrollTop = $(this).scrollTop();
-        if (!flag && (scrollTop > parseInt(commentContainer.offset().top + commentContainer.height()- 850))) {
-            // 获取评论列表
-            commentManager.getCommentList();
-            flag = true;
-        }
-    });
+    // $(window).scroll(function(e) {
+    //     var scrollTop = $(this).scrollTop();
+    //     if (!flag && (scrollTop > parseInt(commentContainer.offset().top + commentContainer.height()- 890))) {
+    //         // 获取评论列表
+    //         commentManager.getCommentList();
+    //         flag = true;
+    //     }
+    // });
+     var scrollFunc=function(e){
+         var scrollTop = $(this).scrollTop();
+         if (!flag && (scrollTop > parseInt(commentContainer.offset().top + commentContainer.height()- window.innerHeight))) {
+             // 获取评论列表
+             commentManager.getCommentList();
+             flag = true;
+         }
+     }
+     /*注册事件*/
+     if(document.addEventListener){
+         document.addEventListener('DOMMouseScroll',scrollFunc,false);
+     }//W3C
+     window.onmousewheel=document.onmousewheel=scrollFunc;//IE/Opera/Chrome
+
 
     // 点赞
     $("#priseBtn").on("click",function () {

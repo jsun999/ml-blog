@@ -61,18 +61,18 @@ public class PortalController {
      * @param model
      * @return
      */
-    @GetMapping(value = {"/", "/index.html"})
+    @GetMapping(value = {"/", "/index.html","index"})
     public String index(Model model) throws Exception {
         List<Post> postList = this.postService.getListPyPage(1, PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE);
-        model.addAttribute("pageInfo", new PageInfo<>(postList, 10));
-        return render(model, "portal/index");
+        model.addAttribute("pageInfo", this.getPageVo(PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE, postList));
+        return render(model, "portal/indexNew");
     }
 
     @GetMapping("/page/{pageNum}/")
     public String page(@PathVariable Integer pageNum, Model model) throws Exception {
         List<Post> postList = this.postService.getListPyPage(1, pageNum, PageConstant.PAGE_SIZE);
-        model.addAttribute("pageInfo", new PageInfo<>(postList, 10));
-        return render(model, "portal/index");
+        model.addAttribute("pageInfo", this.getPageVo(PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE, postList));
+        return render(model, "portal/indexNew");
     }
 
     /**
@@ -251,7 +251,7 @@ public class PortalController {
         return Result.success(this.getPageVo(pageNum, PageConstant.PAGE_SIZE, commentList));
     }
 
-    private PageVo<List<Comment>> getPageVo(Integer pageNum, Integer pageSize, List<Comment> commentList) {
+    private PageVo<List<?>> getPageVo(Integer pageNum, Integer pageSize, List<?> commentList) {
         if (commentList.isEmpty()) {
             return new PageVo(pageNum, pageSize, commentList.size(), null);
         }
@@ -265,8 +265,9 @@ public class PortalController {
 
         int end;
         end = getEnd(pageSize, start, commentList.size());
-        List<Comment> subList = commentList.subList(start, end);
-        return new PageVo(pageNum, pageSize, commentList.size(), subList);
+        List<?> subList = commentList.subList(start, end);
+        PageVo result= new PageVo(pageNum, pageSize, commentList.size(), subList);
+        return result;
     }
 
     private int getEnd(Integer pageSize, int start, int size) {

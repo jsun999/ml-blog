@@ -335,7 +335,7 @@ figure figcaption {
 
 #fh5co-hero {
   min-height: 500px;
-  background: #fff url(../images/loader.gif) no-repeat center center;
+  background: #fff  no-repeat center center;
   width: 100%;
   float: left;
   clear: both;
@@ -1237,3 +1237,49 @@ body::-webkit-scrollbar-track {/*滚动条里面轨道*/
   border-radius: 10px;
   background: #EDEDED;
 }
+.pagination {
+  position: relative;
+  display: block;
+  text-align: center;
+  /*width: 800px;*/
+  margin: 10px auto;
+}
+
+.pagination i {
+  font-size: 40px
+}
+.page-numbers {
+  display: inline-block;
+  padding: 0 5px;
+  color: #666
+}
+
+.pagination a {
+  margin: 10px 5px;
+  min-width: 30px;
+  height: 30px;
+  line-height: 30px;
+}
+
+.pagination a:hover {
+  background: #8d9cac;
+  color: #fff;
+  border-radius: 50%;
+  min-width: 30px;
+  height: 30px;
+  line-height: 30px;
+  box-shadow: 1px 1px 25px 1px #8d9cac;
+}
+
+.page-numbers.current {
+  border-radius: 50%;
+  background: #8d9cac;
+  min-width: 30px;
+  height: 30px;
+  line-height: 30px;
+  text-align: center;
+  color: #fff;
+  font-size: 15px;
+  box-shadow: 1px 1px 25px 1px #8d9cac;
+}
+

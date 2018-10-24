@@ -30,7 +30,7 @@ public class IndexController {
     @Autowired
     private CategoryService categoryService;
     @Autowired
-    private GuestbookService guestbookService;
+    private CommentService commentService;
     @Autowired
     private ParamService paramService;
     @Autowired
@@ -62,13 +62,13 @@ public class IndexController {
             int postCount = this.postService.getPostCount(null);
             int categoryCount = this.categoryService.getCategoryCount();
             int tagCount = this.postService.getTagCount();
-            int guestbookCount = this.guestbookService.getGuestbookCount();
+            int commentCount = this.commentService.getCommentCount();
 
             Map<String,Integer> map = new HashMap<>(4);
             map.put("postCount",postCount);
             map.put("categoryCount",categoryCount);
             map.put("tagCount",tagCount);
-            map.put("guestbookCount",guestbookCount);
+            map.put("commentCount",commentCount);
 
             return Result.success(map);
         } catch (Exception e) {

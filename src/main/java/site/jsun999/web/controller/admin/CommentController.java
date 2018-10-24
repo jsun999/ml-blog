@@ -1,15 +1,15 @@
 package site.jsun999.web.controller.admin;
 
+import com.github.pagehelper.PageInfo;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 import site.jsun999.aspect.SysLog;
 import site.jsun999.common.constant.PageConstant;
 import site.jsun999.common.utils.IPUtil;
 import site.jsun999.common.vo.Result;
-import site.jsun999.model.Guestbook;
-import site.jsun999.service.GuestbookService;
+import site.jsun999.model.Comment;
+import site.jsun999.service.CommentService;
 import site.jsun999.web.exception.GlobalException;
-import com.github.pagehelper.PageInfo;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
@@ -18,18 +18,18 @@ import java.util.List;
  * 留言相关
  */
 @RestController
-@RequestMapping("/admin/guestbook")
-public class GuestbookController {
+@RequestMapping("/admin/comment")
+public class CommentController {
 
     @Autowired
-    private GuestbookService guestbookService;
+    private CommentService commentService;
 
 
     @GetMapping("/list/{pageNum}/{delStatus}")
     public Result list(@PathVariable("pageNum") Integer pageNum, @PathVariable("delStatus") Integer delStatus) {
 
         try {
-            List<Guestbook> list = this.guestbookService.getListPyPage(delStatus,null,pageNum, PageConstant.PAGE_SIZE);
+            List<Comment> list = this.commentService.getListPyPage(delStatus,null,pageNum, PageConstant.PAGE_SIZE);
             return Result.success(new PageInfo<>(list,10));
         } catch (Exception e) {
             throw new GlobalException(500,e.getMessage());
@@ -40,8 +40,8 @@ public class GuestbookController {
     @GetMapping("/get/{id}")
     public Result get(@PathVariable Integer id) {
         try {
-            Guestbook guestbook = this.guestbookService.getById(id);
-            return Result.success(guestbook);
+            Comment comment = this.commentService.getById(id);
+            return Result.success(comment);
         } catch (Exception e) {
             throw new GlobalException(500,e.getMessage());
         }
@@ -49,12 +49,12 @@ public class GuestbookController {
 
     @SysLog("回复留言")
     @PostMapping("/save")
-    public Result save(Guestbook guestbook, HttpServletRequest request) {
+    public Result save(Comment comment, HttpServletRequest request) {
         try {
-            guestbook.setIp(IPUtil.getIpAddr(request));
-            String city = IPUtil.getCity(guestbook.getIp());
-            guestbook.setIpAddr(city == null ? "未知" : city);
-            this.guestbookService.reply(guestbook);
+            comment.setIp(IPUtil.getIpAddr(request));
+            String city = IPUtil.getCity(comment.getIp());
+            comment.setIpAddr(city == null ? "未知" : city);
+            this.commentService.reply(comment);
             return Result.success();
         } catch (Exception e) {
             throw new GlobalException(500,e.getMessage());
@@ -65,7 +65,7 @@ public class GuestbookController {
     @PostMapping("/delete/{id}")
     public Result delete(@PathVariable Integer id) {
         try {
-            this.guestbookService.deleteGuestbook(id);
+            this.commentService.deleteComment(id);
             return Result.success();
         } catch (Exception e) {
             throw new GlobalException(500,e.getMessage());

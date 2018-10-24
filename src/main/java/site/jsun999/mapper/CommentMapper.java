@@ -3,7 +3,6 @@ package site.jsun999.mapper;
 import org.apache.ibatis.annotations.Mapper;
 import org.apache.ibatis.annotations.Param;
 import site.jsun999.model.Comment;
-import site.jsun999.model.Guestbook;
 
 import java.util.List;
 
