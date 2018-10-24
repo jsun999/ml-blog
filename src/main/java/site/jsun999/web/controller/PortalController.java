@@ -14,7 +14,6 @@ import site.jsun999.component.GeetestService;
 import site.jsun999.component.LuceneService;
 import site.jsun999.model.AboutMe;
 import site.jsun999.model.Comment;
-import site.jsun999.model.Guestbook;
 import site.jsun999.model.Post;
 import site.jsun999.service.*;
 import site.jsun999.web.exception.GlobalException;
@@ -211,22 +210,22 @@ public class PortalController {
      * @param model
      * @return
      */
-//    @GetMapping("/guestbook/")
-//    public String guestbook(Model model) throws Exception {
-//        List<Guestbook> list = this.guestbookervice.getListPyPage(0,1, PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE);
-//        Integer totalCount = this.guestbookervice.getTotalCount(0);
+//    @GetMapping("/comment/")
+//    public String comment(Model model) throws Exception {
+//        List<Comment> list = this.commentervice.getListPyPage(0,1, PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE);
+//        Integer totalCount = this.commentervice.getTotalCount(0);
 //        model.addAttribute("pageInfo", new PageInfo<>(list, 10));
 //        model.addAttribute("totalCount",totalCount);
-//        return render(model, "portal/guestbook");
+//        return render(model, "portal/comment");
 //    }
 //
-//    @GetMapping("/guestbook/page/{pageNum}/")
-//    public String guestbook(@PathVariable Integer pageNum, Model model) throws Exception {
-//        List<Guestbook> list = this.guestbookervice.getListPyPage(0,1, pageNum, PageConstant.PAGE_SIZE);
-//        Integer totalCount = this.guestbookervice.getTotalCount(0);
+//    @GetMapping("/comment/page/{pageNum}/")
+//    public String comment(@PathVariable Integer pageNum, Model model) throws Exception {
+//        List<Comment> list = this.commentervice.getListPyPage(0,1, pageNum, PageConstant.PAGE_SIZE);
+//        Integer totalCount = this.commentervice.getTotalCount(0);
 //        model.addAttribute("pageInfo", new PageInfo<>(list, 10));
 //        model.addAttribute("totalCount",totalCount);
-//        return render(model, "portal/guestbook");
+//        return render(model, "portal/comment");
 //    }
 
     /**
@@ -308,12 +307,12 @@ public class PortalController {
     /**
      * 留言板 发言(极验)
      *
-     * @param guestbook
+     * @param comment
      * @return
      */
-//    @PostMapping("/guestbook-gt")
+//    @PostMapping("/comment-gt")
 //    @ResponseBody
-//    public Result saveGuestbookGt(@Valid Guestbook guestbook, HttpServletRequest request) throws Exception {
+//    public Result saveCommentGt(@Valid Comment comment, HttpServletRequest request) throws Exception {
 //
 //        if (!ParamUtil.checkParameter(ParamConstant.GEETEST)) {
 //            throw new GlobalException(500, "未配置极验参数");
@@ -323,10 +322,10 @@ public class PortalController {
 //            throw new GlobalException(500, "验证错误");
 //        }
 //
-//        guestbook.setIp(IPUtil.getIpAddr(request));
-//        String city = IPUtil.getCity(guestbook.getIp());
-//        guestbook.setIpAddr(city == null ? "未知" : city);
-//        this.guestbookService.save(guestbook);
+//        comment.setIp(IPUtil.getIpAddr(request));
+//        String city = IPUtil.getCity(comment.getIp());
+//        comment.setIpAddr(city == null ? "未知" : city);
+//        this.commentService.save(comment);
 //        return Result.success();
 //    }
 

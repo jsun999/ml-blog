@@ -22,7 +22,7 @@
                 </div>
                 <div class="xia info">
                     <span><time >[[${#dates.format(reply.createTime, 'yyyy年MM月dd日 HH:mm:ss')}]]</time></span>
-                    <span><a rel='nofollow' th:data-guestbookid="${reply.id}" class='comment-reply-link replyBtn' href='javascript:void(0)' aria-label='回复'>回复([[${#lists.size(reply.replyList)}]])</a> <a th:if="${#lists.size(reply.replyList) > 0}" href="javascript:void(0)" th:data-id="${reply.id}" style="cursor: pointer;color: #A1A1A1" class="showbtn">折叠回复</a></span>
+                    <span><a rel='nofollow' th:data-commentid="${reply.id}" class='comment-reply-link replyBtn' href='javascript:void(0)' aria-label='回复'>回复([[${#lists.size(reply.replyList)}]])</a> <a th:if="${#lists.size(reply.replyList) > 0}" href="javascript:void(0)" th:data-id="${reply.id}" style="cursor: pointer;color: #A1A1A1" class="showbtn">折叠回复</a></span>
                 </div>
             </div>
             <div th:unless="${#lists.isEmpty(${reply.replyList})}" th:replace="this :: reply(${reply.replyList},${reply.nickname},${reply.id})"></div>

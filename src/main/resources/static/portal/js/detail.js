@@ -49,7 +49,7 @@
                                 htmlArr.push("<textarea class='comment-form-control form-control' name='content' id='' rows='5' placeholder='说些内容吧~' style='resize: none;'></textarea>");
                                 htmlArr.push("<form class='form-inline'>");
                                 htmlArr.push("<div class='form-group'>");
-                                htmlArr.push("<span style='display: inline-block;padding-left: 10px'><img src='/portal/images/guestbook_2.jpg' width='32' height='32'></span>");
+                                htmlArr.push("<span style='display: inline-block;padding-left: 10px'><img src='/portal/images/comment_2.jpg' width='32' height='32'></span>");
                                 htmlArr.push("</div>");
                                 htmlArr.push("<div class='form-group'>");
                                 htmlArr.push("<input type='text' class='form-control' placeholder='昵称(必填)'>");
@@ -143,7 +143,7 @@
                if (idStr && idStr.indexOf("reply_") > -1) {
                    commentId = idStr.split("_")[1];
                }
-               var imgUrl = "/portal/images/guestbook_" + (Math.floor(Math.random() * 5) + 1) + ".jpg";
+               var imgUrl = "/portal/images/comment_" + (Math.floor(Math.random() * 5) + 1) + ".jpg";
                var parameter = {
                    "nickname": commentManager.checkSafe(nickname),
                    "content": commentManager.checkSafe(content),

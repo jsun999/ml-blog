@@ -25,7 +25,7 @@ public class SpringmvcConfiguration implements WebMvcConfigurer {
         registry.addViewController("/admin/index").setViewName("admin/index");
         registry.addViewController("/admin/post").setViewName("admin/post");
         registry.addViewController("/admin/category").setViewName("admin/category");
-        registry.addViewController("/admin/guestbook").setViewName("admin/guestbook");
+        registry.addViewController("/admin/comment").setViewName("admin/comment");
         registry.addViewController("/admin/commonParam").setViewName("admin/commonParam");
         registry.addViewController("/admin/personParam").setViewName("admin/personParam");
         registry.addViewController("/admin/database").setViewName("admin/database");

@@ -52,8 +52,8 @@ INSERT INTO `t_category` (`id`, `name`, `sort`, `descr`, `color`, `img_url`, `cr
 /*!40000 ALTER TABLE `t_category` ENABLE KEYS */;
 
 
--- 导出  表 ml-blog.t_guestbook 结构
-CREATE TABLE IF NOT EXISTS `t_guestbook` (
+-- 导出  表 ml-blog.t_comment 结构
+CREATE TABLE IF NOT EXISTS `t_comment` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `nickname` varchar(50) NOT NULL COMMENT '昵称',
   `email` varchar(50) DEFAULT NULL COMMENT '邮箱地址',
@@ -65,14 +65,14 @@ CREATE TABLE IF NOT EXISTS `t_guestbook` (
   `status` tinyint(4) NOT NULL COMMENT '读取状态 0:未读 1:已读',
   `del_status` tinyint(4) NOT NULL COMMENT '删除状态 0：未删除 1：删除 ',
   `type` TINYINT(4) NOT NULL COMMENT '留言类型 1:留言 2:回复',
-  `guestbook_id` INT(11) NULL DEFAULT NULL COMMENT '被回复者ID',
+  `comment_id` INT(11) NULL DEFAULT NULL COMMENT '被回复者ID',
   `create_time` datetime NOT NULL,
   PRIMARY KEY (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
--- 正在导出表  ml-blog.t_guestbook 的数据：~0 rows (大约)
-/*!40000 ALTER TABLE `t_guestbook` DISABLE KEYS */;
-/*!40000 ALTER TABLE `t_guestbook` ENABLE KEYS */;
+-- 正在导出表  ml-blog.t_comment 的数据：~0 rows (大约)
+/*!40000 ALTER TABLE `t_comment` DISABLE KEYS */;
+/*!40000 ALTER TABLE `t_comment` ENABLE KEYS */;
 
 
 -- 导出  表 ml-blog.t_log 结构

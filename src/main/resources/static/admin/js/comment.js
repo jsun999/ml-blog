@@ -1,25 +1,25 @@
 $(function () {
-    guestbookManager.init();
+    commentManager.init();
 });
 
-var guestbookManager = {
+var commentManager = {
     delStatus : 0,
     init: function () {
-        guestbookManager.getList();
+        commentManager.getList();
 
         $("#replyBtn").on("click",function () {
             var parameter = {
                 "content": $("#replyContent").val(),
-                "guestbookId": $("#id").val(),
-                "imgUrl": "/portal/images/guestbook_author.jpg"
+                "commentId": $("#id").val(),
+                "imgUrl": "/portal/images/comment_author.jpg"
             }
             var index = layer.load(1);
-            $.post("/admin/guestbook/save",parameter,function (resp) {
+            $.post("/admin/comment/save",parameter,function (resp) {
                 layer.close(index);
                 if (resp.code == 200) {
                     $("#replyUI").modal("hide");
                     swal("保存成功", "","success");
-                    guestbookManager.getList();
+                    commentManager.getList();
                 } else {
                     swal("保存失败", resp.msg,"error");
                 }
@@ -27,37 +27,37 @@ var guestbookManager = {
         });
 
         $(".delStatus").on("click",function () {
-            guestbookManager.delStatus = $(this).val();
-            guestbookManager.getList(1);
+            commentManager.delStatus = $(this).val();
+            commentManager.getList(1);
         });
     },
     getList: function (pageNum) {
-        $.getJSON("/admin/guestbook/list/"+(pageNum || 1) + "/" + guestbookManager.delStatus,function (resp) {
+        $.getJSON("/admin/comment/list/"+(pageNum || 1) + "/" + commentManager.delStatus,function (resp) {
 
             if (resp.code == 200) {
                 var pageInfo = resp.data;
                 if (pageInfo.list.length > 0) {
                     var htmlArr = [];
                     for (var i=0; i< pageInfo.list.length; i++) {
-                        var guestbook = pageInfo.list[i];
+                        var comment = pageInfo.list[i];
                         htmlArr.push("<tr>");
                         htmlArr.push("<td>"+(i+1)+"</td>");
-                        htmlArr.push("<td><a href='/guestbook/#"+guestbook.nickname+"' target='_blank'>"+guestbook.nickname+"</a></td>");
-                        htmlArr.push("<td>"+(guestbook.email || '')+"</td>");
-                        htmlArr.push("<td><img src='"+guestbook.imgUrl+"' alt='' width='32' height='32'></td>");
-                        htmlArr.push("<td style='white-space: nowrap;text-overflow: ellipsis;overflow: hidden;'><p style='width: 400px;'>"+guestbook.content+"</p></td>");
-                        htmlArr.push("<td>"+(guestbook.type == 1 ? '留言' : '回复')+"</td>");
-                        htmlArr.push("<td><a title='"+guestbook.ip+"'>"+guestbook.ipAddr+"</a></td>");
-                        htmlArr.push("<td>"+guestbook.createTime+"</td>")
-                        htmlArr.push("<td class='actions'><button type='button' class='btn btn-info waves-effect m-b-5 reply' data-id='"+guestbook.id+"'>回复</button>");
-                        htmlArr.push(" <button type='button' class='btn btn-danger waves-effect m-b-5 delete' data-id='"+guestbook.id+"'>删除</button></td>");
+                        htmlArr.push("<td><a href='/comment/#"+comment.nickname+"' target='_blank'>"+comment.nickname+"</a></td>");
+                        htmlArr.push("<td>"+(comment.email || '')+"</td>");
+                        htmlArr.push("<td><img src='"+comment.imgUrl+"' alt='' width='32' height='32'></td>");
+                        htmlArr.push("<td style='white-space: nowrap;text-overflow: ellipsis;overflow: hidden;'><p style='width: 400px;'>"+comment.content+"</p></td>");
+                        htmlArr.push("<td>"+(comment.type == 1 ? '留言' : '回复')+"</td>");
+                        htmlArr.push("<td><a title='"+comment.ip+"'>"+comment.ipAddr+"</a></td>");
+                        htmlArr.push("<td>"+comment.createTime+"</td>")
+                        htmlArr.push("<td class='actions'><button type='button' class='btn btn-info waves-effect m-b-5 reply' data-id='"+comment.id+"'>回复</button>");
+                        htmlArr.push(" <button type='button' class='btn btn-danger waves-effect m-b-5 delete' data-id='"+comment.id+"'>删除</button></td>");
                         htmlArr.push("</tr>");
                     }
-                    $("#guestbookTable").find("tbody").html(htmlArr.join(""));
-                    guestbookManager.setPageBar(pageInfo);
-                    guestbookManager.bindClick();
+                    $("#commentTable").find("tbody").html(htmlArr.join(""));
+                    commentManager.setPageBar(pageInfo);
+                    commentManager.bindClick();
                 } else {
-                    $("#guestbookTable").find("tbody").html("<tr><td colspan='10' align='center'>暂无数据</td></tr>");
+                    $("#commentTable").find("tbody").html("<tr><td colspan='10' align='center'>暂无数据</td></tr>");
                     $("#pageBar").html("");
                 }
             } else {
@@ -80,21 +80,21 @@ var guestbookManager = {
             if (!pageInfo.hasPreviousPage) {
                 return;
             }
-            guestbookManager.getList(pageInfo.pageNum - 1);
+            commentManager.getList(pageInfo.pageNum - 1);
         });
 
         $("#nextBtn").on("click",function () {
             if (!pageInfo.hasNextPage) {
                 return;
             }
-            guestbookManager.getList(pageInfo.pageNum + 1);
+            commentManager.getList(pageInfo.pageNum + 1);
         });
     },
     bindClick: function () {
 
         $(".reply").on("click",function () {
             var id = $(this).data("id");
-            $.getJSON("/admin/guestbook/get/"+id,function (resp) {
+            $.getJSON("/admin/comment/get/"+id,function (resp) {
                 if (resp.code == 200) {
 
                     for(var key in resp.data) {
@@ -123,10 +123,10 @@ var guestbookManager = {
             },
             function(){
                 var id = $(that).data("id");
-                $.post("/admin/guestbook/delete/"+id,null,function (resp) {
+                $.post("/admin/comment/delete/"+id,null,function (resp) {
                     if (resp.code == 200) {
                         swal("删除成功", "","success");
-                        guestbookManager.getList();
+                        commentManager.getList();
                     } else {
                         swal("删除失败", resp.msg,"error");
                     }

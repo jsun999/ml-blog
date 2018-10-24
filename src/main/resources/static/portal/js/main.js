@@ -155,7 +155,7 @@
         if(window.location.href.search("categories") !=-1){
             $("#fh5co-main-menu li").eq(2).addClass("fh5co-active");
         }
-        if(window.location.href.search("guestbook") !=-1){
+        if(window.location.href.search("comment") !=-1){
             $("#fh5co-main-menu li").eq(3).addClass("fh5co-active");
         }
         if(window.location.href.search("about") !=-1){
