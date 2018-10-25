@@ -20,7 +20,14 @@
                             <h4 class="col-padding animate-box" data-animate-effect="fadeInLeft">[[${map.key}]]</h4>
                             <div class="col-md-3 col-sm-6 col-padding animate-box" data-animate-effect="fadeInLeft" th:each="vo : ${map.value}">
                                 <div class="blog-entry">
-                                    <a th:href="@{'/'+${vo.postUrl}}" class="blog-img"><img th:src="@{/portal/images/img-1.jpg}" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co"></a>
+                                    <a th:href="@{'/'+${vo.postUrl}}" class="blog-img">
+                                        <div th:if="${#strings.startsWith(vo.imgUrl,'material')}">
+                                            <img th:src="@{'/portal/images/random/'+${vo.imgUrl}}" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+                                        </div>
+                                        <div th:if="${#strings.startsWith(vo.imgUrl,'material') eq false}">
+                                            <img th:src="${vo.imgUrl}" class="img-responsive" alt="Free HTML5 Bootstrap Template by FreeHTML5.co">
+                                        </div>
+                                    </a>
                                     <div class="desc">
                                         <a th:href="@{'/'+${vo.postUrl}}">[[${vo.title}]]</a>
                                         <span class="time">[[${#dates.format(vo.publishDate, 'yyyy-MM-dd')}]]</span>

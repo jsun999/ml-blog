@@ -376,7 +376,8 @@ public class PortalController {
             postVo.setId(post.getId())
                     .setTitle(post.getTitle())
                     .setPublishDate(post.getPublishDate())
-                    .setPostUrl(post.getPostUrl());
+                    .setPostUrl(post.getPostUrl())
+                    .setImgUrl(post.getImgUrl());
 
             String key = post.getYear() + "-" + post.getMonth();
 

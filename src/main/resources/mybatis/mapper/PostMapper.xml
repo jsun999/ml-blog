@@ -62,7 +62,9 @@
             p.title,
             p.year,
             p.month,
-            p.publish_date
+            p.publish_date,
+            p.img_url,
+            p.create_time
         FROM
             t_post p
         WHERE

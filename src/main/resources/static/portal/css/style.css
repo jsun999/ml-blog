@@ -540,7 +540,6 @@ body.offcanvas #fh5co-main, body.offcanvas .fh5co-nav-toggle {
 .blog-entry .blog-img img {
   position: relative;
   max-width: 100%;
-  height: 200px;
   -webkit-transform: scale(1.2);
   -moz-transform: scale(1.2);
   -ms-transform: scale(1.2);
