@@ -113,11 +113,10 @@ public class PortalController {
 
     @GetMapping(value = "/categories/{categoryName}/")
     public String categoryList(@PathVariable String categoryName, Model model) throws Exception {
-
         List<Post> postList = this.postService.queryByCategory(categoryName, PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE);
         model.addAttribute("pageInfo", new PageInfo<>(postList, 10));
         model.addAttribute("name", categoryName);
-        return render(model, "portal/postlist");
+        return render(model, "portal/postlistNew");
     }
 
     @GetMapping("/categories/{categoryName}/page/{pageNum}/")
@@ -125,7 +124,7 @@ public class PortalController {
         List<Post> postList = this.postService.queryByCategory(categoryName, pageNum, PageConstant.PAGE_SIZE);
         model.addAttribute("pageInfo", new PageInfo<>(postList, 10));
         model.addAttribute("name", categoryName);
-        return render(model, "portal/postlist");
+        return render(model, "portal/postlistNew");
     }
 
     /**
@@ -169,7 +168,7 @@ public class PortalController {
      * @return
      */
     @GetMapping("/search/")
-    public String search(String keyword, Model model) throws Exception {
+    public String search(String keyword,     Model model) throws Exception {
         if (StringUtils.isEmpty(keyword)) {
             model.addAttribute("keyword", keyword);
             model.addAttribute("pageInfo", new PageVo(PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE, 0, null));

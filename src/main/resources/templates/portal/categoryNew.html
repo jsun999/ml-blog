@@ -13,7 +13,7 @@
             <h2 class="fh5co-heading animate-box post_title" data-animate-effect="fadeInLeft">分类</h2>
             <div class="row row-bottom-padded-md">
                 <div class="col-md-3 col-sm-6 col-padding text-center animate-box" th:each="category: ${categoryList}">
-                    <a href="#" class="work image-popup" th:style="@{'background-image: url('+ ${category.imgUrl}+')'}">
+                    <a th:href="@{'/categories/'+${category.name}+'/'}" class="work image-popup" th:style="@{'background-image: url('+ ${category.imgUrl}+')'}">
                         <div class="desc">
                             <h3>[[${category.name}]]</h3>
                             <span>([[${category.postCount}]])</span>

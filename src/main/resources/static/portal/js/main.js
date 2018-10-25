@@ -162,6 +162,11 @@
             $("#fh5co-main-menu li").eq(4).addClass("fh5co-active");
         }
 	}
+	var jumpAnchor = function() {
+		if(window.location.href.search("page") !=-1){
+            location.href = "#archives";
+		}
+	}
 
 	// Document on load.
 	$(function(){
@@ -171,6 +176,7 @@
 		mobileMenuOutsideClick();
 		sliderMain();
         activeLi();
+        jumpAnchor();
 	});
 
 
