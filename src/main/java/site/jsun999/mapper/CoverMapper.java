@@ -25,13 +25,6 @@ public interface CoverMapper extends BaseMapper<Cover> {
     List<Cover> getList(@Param("status") Integer status);
 
     /**
-     * 通过文章 URL 获取文章内容
-     * @param coverUrl
-     * @return
-     */
-    Cover getByCoverUrl(String coverUrl);
-
-    /**
      * 获取上一篇文章
      * @param id
      * @return
@@ -51,10 +44,5 @@ public interface CoverMapper extends BaseMapper<Cover> {
      */
     void deleteBatch(@Param("idList") List<Integer> idList);
 
-    /**
-     * 插入前检测
-     * @param cover
-     */
-    void checkInsert(Cover cover);
 
 }

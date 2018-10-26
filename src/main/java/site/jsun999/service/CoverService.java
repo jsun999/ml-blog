@@ -10,7 +10,7 @@ public interface CoverService extends BaseService<Cover> {
 
 
     /**
-     * 通过分类ID获取文章列表
+     * 通过分类ID获取cover列表
      * @param categoryId
      * @param pageNum
      * @param pageSize
@@ -34,14 +34,6 @@ public interface CoverService extends BaseService<Cover> {
      * @return
      */
     List<Cover> queryByCategory(String categoryName, Integer pageNum, Integer pageSize) throws GlobalException;
-
-    /**
-     * 通过 文章URL 获取文章内容
-     * @param postUrl
-     * @return
-     * @throws GlobalException
-     */
-    Cover getByCoverUrl(String postUrl) throws GlobalException;
 
     /**
      * 获取上一篇文章

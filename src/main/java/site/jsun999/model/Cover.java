@@ -25,6 +25,8 @@ public class Cover {
     @Id
     private Integer id;
 
+    private String title;
+
     private String description;
 
     @NotEmpty(message = "图片不能为空")
