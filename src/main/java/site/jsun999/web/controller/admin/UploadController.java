@@ -101,7 +101,7 @@ public class UploadController {
             DefaultPutRet putRet = new Gson().fromJson(response.bodyString(), DefaultPutRet.class);
 
             String resultKey = putRet.key == null ? putRet.hash : putRet.key;
-            return Result.success(commonMap.get("qn_domain").toString() + "/" + resultKey);
+            return Result.success("http://"+commonMap.get("qn_domain").toString() + "/" + resultKey);
 
         } catch (GlobalException e) {
             throw new GlobalException(500,e.getMessage());

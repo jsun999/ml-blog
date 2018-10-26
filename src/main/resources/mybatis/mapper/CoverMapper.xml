@@ -1,0 +1,163 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="site.jsun999.mapper.CoverMapper">
+
+    <!-- 通过分类ID获取文章列表 -->
+    <select id="queryCoverByCategoryId" resultType="site.jsun999.model.Cover">
+        SELECT
+        p.id,
+        p.description,
+        p.category_id,
+        p.category_name,
+        p.status,
+        p.img_url,
+        p.link_url,
+        p.create_time
+        FROM
+        t_cover p
+        <where>
+            <if test="categoryId != null and categoryId != 0">
+                AND p.category_id = #{categoryId}
+            </if>
+            <if test="status !=null">
+                AND  p.status = #{status}
+            </if>
+            <if test="description !=null">
+                AND p.description LIKE CONCAT('%',#{description},'%')
+            </if>
+        </where>
+        ORDER BY p.create_time DESC
+    </select>
+
+    <!-- 获取封面列表 -->
+    <select id="getList" parameterType="java.lang.Integer" resultType="site.jsun999.model.Cover">
+        SELECT
+            p.id,
+            p.description,
+            p.category_id,
+            p.category_name,
+            p.img_url,
+            p.link_url,
+            p.create_time
+        FROM
+            t_cover p
+        <where>
+            <if test="status !=null">
+                p.status = #{status}
+            </if>
+        </where>
+        ORDER BY p.create_time DESC
+    </select>
+
+    <!-- 通过文章 URL 获取文章内容 -->
+    <select id="getByCoverUrl" parameterType="java.lang.String" resultType="site.jsun999.model.Cover">
+        SELECT
+            p.id,
+            p.cover_url,
+            p.title,
+            p.content,
+            p.category_name,
+            p.tags,
+            p.status,
+            p.publish_date
+        FROM
+            t_cover p
+        WHERE
+            p.cover_url = #{coverUrl}
+        AND p.status = 1
+    </select>
+
+    <!-- 获取上一篇文章 -->
+    <select id="getPreviousInfo" parameterType="java.lang.Integer" resultType="site.jsun999.model.Cover">
+        SELECT
+            p.id,
+            p.cover_url,
+            p.title,
+            p.img_url,
+            p.create_time
+        FROM
+          t_cover p
+        WHERE
+          p. STATUS = 1
+        AND p.create_time &lt; (
+            SELECT
+              create_time
+            FROM
+              t_cover
+            WHERE
+              id = #{id}
+            )
+        ORDER BY
+          p.create_time DESC
+        LIMIT 1
+    </select>
+
+    <!-- 获取下一篇文章 -->
+    <select id="getNextInfo" parameterType="java.lang.Integer" resultType="site.jsun999.model.Cover">
+        SELECT
+            p.id,
+            p.cover_url,
+            p.title,
+            p.img_url,
+            p.create_time
+        FROM
+            t_cover p
+        WHERE
+            p. STATUS = 1
+        AND p.create_time &gt; (
+            SELECT
+                create_time
+            FROM
+                t_cover
+            WHERE
+                id = #{id}
+        )
+        ORDER BY
+            p.create_time ASC
+        LIMIT 1
+    </select>
+
+    <!-- 通过关键字搜索文章 -->
+    <select id="queryByKeyworld" parameterType="java.lang.String" resultType="site.jsun999.model.Cover">
+        SELECT
+            p.id,
+            p.cover_url,
+            p.title,
+            p.category_name,
+            p.tags,
+            p.publish_date
+        FROM
+          t_cover p
+        WHERE
+          p.`status` = 1
+        AND p.title LIKE CONCAT('%',#{keyword},'%')
+    </select>
+
+    <!-- 批量删除 -->
+    <delete id="deleteBatch">
+        DELETE FROM t_cover WHERE id IN
+        <foreach collection="idList" item="id" open="(" separator="," close=")">
+            #{id}
+        </foreach>
+    </delete>
+
+    <insert id="insertBatch">
+        INSERT INTO t_cover(title,keyword,sub_content,content,status,category_id,category_name,tags,img_url,year,month,day,cover_url,publish_date,create_time,update_time)
+        VALUES
+        <foreach collection="coverList" item="cover" separator=",">
+            (#{cover.title},#{cover.keyword},#{cover.subContent},#{cover.content},#{cover.status},#{cover.categoryId},#{cover.categoryName},#{cover.tags},#{cover.imgUrl},#{cover.year},#{cover.month},#{cover.day},#{cover.coverUrl},#{cover.publishDate},#{cover.createTime},#{cover.updateTime})
+        </foreach>
+    </insert>
+
+    <insert id="checkInsert" parameterType="site.jsun999.model.Cover" useGeneratedKeys="true" keyProperty="id">
+        INSERT INTO t_cover(title,keyword,sub_content,content,status,category_id,category_name,tags,img_url,year,month,day,cover_url,publish_date,create_time,update_time)
+        SELECT #{title},#{keyword},#{subContent},#{content},#{status},#{categoryId},#{categoryName},#{tags},#{imgUrl},#{year},#{month},#{day},#{coverUrl},#{publishDate},#{createTime},#{updateTime}
+        FROM dual
+        WHERE NOT EXISTS(
+              SELECT id
+              FROM t_cover
+              WHERE title = #{title}
+        )
+</insert>
+</mapper>

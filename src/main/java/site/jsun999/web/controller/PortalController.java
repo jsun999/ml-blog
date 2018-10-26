@@ -14,6 +14,7 @@ import site.jsun999.component.GeetestService;
 import site.jsun999.component.LuceneService;
 import site.jsun999.model.AboutMe;
 import site.jsun999.model.Comment;
+import site.jsun999.model.Cover;
 import site.jsun999.model.Post;
 import site.jsun999.service.*;
 import site.jsun999.web.exception.GlobalException;
@@ -53,7 +54,8 @@ public class PortalController {
     private LuceneService luceneService;
     @Autowired
     private GeetestService geetestService;
-
+    @Autowired
+    private CoverService coverService;
     /**
      * 首页列表
      *
@@ -65,6 +67,12 @@ public class PortalController {
         List<Post> postList = this.postService.getListPyPage(1, PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE);
 //        model.addAttribute("pageInfo", this.getPageVo(PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE, postList));
         model.addAttribute("pageInfo", new PageInfo<>(postList, 10));
+        List<Cover> coverList = this.coverService.getListPyPage(1,PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE);
+        if(coverList.size()>5){
+            model.addAttribute("coverInfo", coverList.subList(0,5));
+        }else{
+            model.addAttribute("coverInfo", coverList.subList(0,coverList.size()));
+        }
         return render(model, "portal/indexNew");
     }
 

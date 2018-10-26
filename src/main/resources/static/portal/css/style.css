@@ -405,9 +405,9 @@ figure figcaption {
 }
 #fh5co-hero .flexslider .slider-text > .slider-text-inner {
   display: table-cell;
-  vertical-align: middle;
+  vertical-align: bottom;
   min-height: 700px;
-  padding: 2em;
+  padding: 6em;
 }
 @media screen and (max-width: 768px) {
   #fh5co-hero .flexslider .slider-text > .slider-text-inner {
