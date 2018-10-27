@@ -26,7 +26,7 @@ var coverManager = {
 
                         htmlArr.push("<tr>");
                         htmlArr.push("<td class='mail-select'><div class='checkbox checkbox-primary'><input id='checkbox_"+cover.id+"' type='checkbox'><label for='checkbox_"+cover.id+"'></label> </div></td>");
-                        htmlArr.push("<td><a href='/"+cover.linkUrl+"' target='_blank'>"+cover.title+"</a></td> ");
+                        htmlArr.push("<td><a href='#'>"+cover.title+"</a></td> ");
                         htmlArr.push("<td>"+cover.description+"</td>");
                         htmlArr.push("<td>"+cover.categoryName+"</td>");
                         htmlArr.push("<td>"+(cover.status == 1 ? '显示' : '隐藏')+"</td>");
