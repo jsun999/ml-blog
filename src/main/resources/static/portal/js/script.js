@@ -93,7 +93,14 @@ document.body.addEventListener('touchstart', function(){ });
 	
 	// Social share open botton 
 	$( "#social-share" ).click(function() {
-	$("#social").toggleClass("visible").slideToggle(200);
+        $('#share-2').share({sites: ['qzone', 'qq', 'weibo','wechat','douban']});
+        // 分享
+        var shareBtns = $("#share-2");
+        if (shareBtns.hasClass("share-open")) {
+            shareBtns.removeClass("share-open");
+        } else {
+            shareBtns.addClass("share-open");
+        }
 	});
 
 	// Ajaxnvai
