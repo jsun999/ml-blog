@@ -23,7 +23,7 @@
     <meta name="twitter:card" content="" />
 
     <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
-    <link rel="shortcut icon" href="favicon.ico">
+    <link rel="shortcut icon" th:href="@{/portal/images/favicon.ico}">
 
     <!-- Animate.css -->
     <link rel="stylesheet" th:href="@{/portal/css/animate.css}" type="text/css">
@@ -107,9 +107,11 @@
 <!-- MAIN JS -->
 <script th:src="@{/portal/js/main.js}"></script>
 <!--搜索-->
+<script th:src="@{/portal/js/aos.js}"></script>
 <script th:src="@{/portal/js/luceneSearch/jquery.realtimeSearch.js}"></script>
 <script th:src="@{/portal/js/luceneSearch/jquery.hideseek.min.js}"></script>
 <script th:src="@{/portal/js/luceneSearch/search.js}"></script>
+
 </body>
 </html>
 
