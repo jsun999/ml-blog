@@ -353,6 +353,15 @@ public class PortalController {
         return render(model, "portal/aboutMeNew");
     }
 
+    @GetMapping("/postList")
+    @ResponseBody
+    public Result postList() throws Exception{
+        List<Post> allPostList = postService.getAllPostList();
+        return Result.success(allPostList);
+    }
+
+
+
     private String render(Model model, String path) {
         model.addAttribute("menu", path.substring(path.indexOf("/") + 1, path.length()));
         return path;

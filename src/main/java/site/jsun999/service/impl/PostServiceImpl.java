@@ -125,6 +125,13 @@ public class PostServiceImpl extends BaseServiceImpl<Post> implements PostServic
         return list;
     }
 
+    @Override
+    public List<Post> getAllPostList() throws GlobalException{
+        return this.postMapper.getList(1);
+    }
+
+
+
     @Cacheable(key = "'page:' + #pageNum")
     @Override
     public List<Post> getListPyPage(Integer status, Integer pageNum, Integer pageSize) throws GlobalException {

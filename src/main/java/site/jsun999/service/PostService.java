@@ -35,6 +35,13 @@ public interface PostService extends BaseService<Post> {
     List<Post> getArchiveList() throws GlobalException;
 
     /**
+     * 获取所有Post列表
+     * @return
+     * @throws GlobalException
+     */
+    List<Post> getAllPostList() throws GlobalException;
+
+    /**
      * 通过分类获取文章列表
      * @param categoryName
      * @return
