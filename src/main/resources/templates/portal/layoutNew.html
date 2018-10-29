@@ -43,13 +43,12 @@
     <!--[if lt IE 9]>
     <script th:src="@{/portal/js/respond.min.js}"></script>
     <![endif]-->
-
+    <link th:href="@{/portal/js/luceneSearch/jquery.realtimeSearch.css}" rel="stylesheet">
 </head>
 <body>
 <div id="fh5co-page">
     <a href="#" class="js-fh5co-nav-toggle fh5co-nav-toggle"><i></i></a>
     <aside id="fh5co-aside" role="complementary" class="border js-fullheight">
-34
         <h1 id="fh5co-logo"><img class="custom-logo avatar" th:src="@{/portal/images/logo1.png}"></h1>
         <nav id="fh5co-main-menu" role="navigation">
             <ul>
@@ -57,6 +56,9 @@
                 <li><a href="/archives/">归档</a></li>
                 <li><a href="/categories/">分类</a></li>
                 <li><a href="/about/">关于我</a></li>
+                <div class="hebin" data-aos="fade-down">
+                    <i class=" js-toggle-search iconfont">&#xe60e;</i>
+                </div>
             </ul>
         </nav>
 
@@ -81,6 +83,12 @@
                 </li>
             </div>
         </div>
+
+        <div class="search-input">
+            <input type="text" id="keywordInput" placeholder="输入关键字" data-list=".highlight_list" autocomplete="off">
+            <ul class="highlight_list" id="searchList"></ul>
+        </div>
+
     </aside>
     <div id="main" class="content" layout:fragment="content"></div>
 </div>
@@ -98,7 +106,9 @@
 
 <!-- MAIN JS -->
 <script th:src="@{/portal/js/main.js}"></script>
-
+<!--搜索-->
+<script th:src="@{/portal/js/luceneSearch/jquery.realtimeSearch.js}"></script>
+<script th:src="@{/portal/js/luceneSearch/jquery.hideseek.min.js}"></script>
 </body>
 </html>
 
