@@ -843,7 +843,9 @@ h1.post_title {
     position: relative;
     margin-left: 2rem !important;
 }
-
+.container.animated.fadeInUp {
+    padding: 0;
+}
 .comment {
     position: relative;
     margin: 15px 0;
