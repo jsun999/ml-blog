@@ -15,7 +15,7 @@
 		<link th:href="@{/admin/assets/css/animate.css}" rel="stylesheet" type="text/css">
 		<link th:href="@{/portal/js/jqueryShare/share.min.css}" rel="stylesheet" type="text/css">
 		<link th:href="@{/portal/js/autoToc/jquery.autoToc.css}" rel="stylesheet" type="text/css">
-
+		<link th:href="@{/portal/js/jqueryAos/aos.css}" rel="stylesheet" type="text/css">
 	</head>
 
 	<body class="home blog custom-background round-avatars" itemscope itemtype="http://schema.org/Organization">
@@ -67,7 +67,7 @@
 										<a th:href="${'/' + next.postUrl}" class="next pull-right">下一篇：《[[${next.title}]]》</a>
 									</div>
 								</footer>
-
+								<div class="tocContainer hidden-xs aos-init aos-animate" id="tocContainer" aos="fade-left"></div>
 							</section>
 							<div id="cyReward" th:sid="${post.postUrl}" role="cylabs" data-use="reward" style="text-align: center;"></div>
 						</article>
@@ -135,9 +135,9 @@
 					<script type='text/javascript' th:src='@{/portal/js/mCustomScrollbar/jquery.mCustomScrollbar.concat.min.js}'></script>
 					<script type='text/javascript' th:src='@{/portal/js/script.js}'></script>
 					<script type='text/javascript' th:src='@{/portal/js/plugins.js}'></script>
-					<script type='text/javascript' th:src='@{/portal/js/aos.js}'></script>
 					<script type='text/javascript' th:src='@{/portal/js/detail.js}'></script>
 					<script type='text/javascript' th:src='@{/portal/js/jqueryShare/jquery.share.min.js}'></script>
+					<script type='text/javascript' th:src='@{/portal/js/jqueryAos/aos.js}'></script>
 					<div th:if="${#strings.isEmpty(#servletContext.getAttribute('paramMap')['leancloud_app_id']) eq false}">
 						<script src="https://cdn1.lncld.net/static/js/av-core-mini-0.6.4.js"></script>
 						<script th:inline="javascript">
