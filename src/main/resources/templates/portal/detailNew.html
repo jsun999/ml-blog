@@ -106,9 +106,7 @@
 						<!--&lt;!&ndash; 评论列表 &ndash;&gt;-->
 						<!--<div id="commentListContainer"></div>-->
 						<div id="panel" th:if="${#strings.isEmpty(#servletContext.getAttribute('paramMap')['changyan_app_id']) eq false}">
-							<div id="cyReward" th:sid="${post.postUrl}" role="cylabs" data-use="reward"></div>
 							<div class="comment-area post post_content ml-content" style="background: #fafafa">
-								<div id="cyEmoji" th:sid="${post.postUrl}" role="cylabs" data-use="emoji" style="width:100%"></div>
 								<script type="text/javascript" charset="utf-8" src="https://changyan.itc.cn/js/lib/jquery.js"></script>
 								<script type="text/javascript" charset="utf-8" th:src="@{'https://changyan.sohu.com/js/changyan.labs.https.js?appid='+${#servletContext.getAttribute('paramMap')['changyan_app_id']}}"></script>
 								<div id="SOHUCS" th:sid="${post.postUrl}" style="width:100%"></div>
