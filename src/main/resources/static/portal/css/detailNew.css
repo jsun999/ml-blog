@@ -1897,3 +1897,40 @@ screen and (max-height:300px) {
 #tocNav {
     padding-left: 0px;
 }
+#fh5co-aside {
+    padding-top: 60px;
+    padding-bottom: 40px;
+    width: 16%;
+    position: fixed;
+    bottom: 0;
+    top: 0;
+    left: 0;
+    overflow-y: scroll;
+    z-index: 1001;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+@media screen and (max-width: 1500px) {
+    #fh5co-aside {
+        width: 16%;
+    }
+}
+#fh5co-main {
+    width: 100%;
+    float: right;
+    -webkit-transition: 0.5s;
+    -o-transition: 0.5s;
+    transition: 0.5s;
+}
+@media screen and (max-width: 1500px) {
+    #fh5co-main {
+        width: 84%;
+    }
+}
+
+@media screen and (max-width: 768px) {
+    #fh5co-main {
+        width: 100%;
+    }
+}
