@@ -8,7 +8,7 @@
      // 代码高亮
      hljs.initHighlightingOnLoad();
      // 文章目录
-     $("#tocContainer").autoToc({offsetTop: 520});
+     $("#tocContainer").autoToc({offsetTop: 100});
      // 自定义滚动条
      $(".post-content code").mCustomScrollbar({axis: "x", theme: "minimal-dark", autoHideScrollbar: true});
 
