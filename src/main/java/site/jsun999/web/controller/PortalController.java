@@ -81,6 +81,12 @@ public class PortalController {
         List<Post> postList = this.postService.getListPyPage(1, pageNum, PageConstant.PAGE_SIZE);
         model.addAttribute("pageInfo", new PageInfo<>(postList, 10));
 //        model.addAttribute("pageInfo", this.getPageVo(PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE, postList));
+        List<Cover> coverList = this.coverService.getListPyPage(1,PageConstant.PAGE_NUM, PageConstant.PAGE_SIZE);
+        if(coverList.size()>5){
+            model.addAttribute("coverInfo", coverList.subList(0,5));
+        }else{
+            model.addAttribute("coverInfo", coverList.subList(0,coverList.size()));
+        }
         return render(model, "portal/indexNew");
     }
 
