@@ -1392,6 +1392,6 @@ body::-webkit-scrollbar-track {/*滚动条里面轨道*/
   }
 }
 
-.row .myrow {
+.myrow {
   margin-left :0px;
 }
