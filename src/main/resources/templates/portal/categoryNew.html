@@ -11,7 +11,7 @@
     <div id="fh5co-main">
         <div class="fh5co-narrow-content">
             <h2 class="fh5co-heading animate-box post_title" data-animate-effect="fadeInLeft">分类</h2>
-            <div class="row-bottom-padded-md">
+            <div class="row myrow row-bottom-padded-md">
                 <div class="col-md-3 col-sm-6 col-padding text-center animate-box" th:each="category: ${categoryList}">
                     <a th:href="@{'/categories/'+${category.name}+'/'}" class="work image-popup" th:style="@{'background-image: url('+ ${category.imgUrl}+')'}">
                         <div class="desc">
