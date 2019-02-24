@@ -711,10 +711,6 @@ nav .link-title a:hover {
     margin-bottom: 0; }
 
 @media (max-width: 768px) {
-    nav {
-        display: none;
-        padding: 0;
-        width: 100%; }
     .site-header {
         padding-left: 0;
         padding-right: 0; }

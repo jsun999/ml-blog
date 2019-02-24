@@ -16,7 +16,7 @@
             <div class="post-Archive">
                 <div id="archives">
                     <div th:if="${pageInfo.total > 0}">
-                        <div class='archive-title row row-bottom-padded-md' th:id="'arti-'+${map.key}" th:each="map : ${pageInfo.data}">
+                        <div class='archive-title row-bottom-padded-md' th:id="'arti-'+${map.key}" th:each="map : ${pageInfo.data}">
                             <h4 class="col-padding animate-box" data-animate-effect="fadeInLeft">[[${map.key}]]</h4>
                             <div class="col-md-3 col-sm-6 col-padding animate-box" data-animate-effect="fadeInLeft" th:each="vo : ${map.value}">
                                 <div class="blog-entry">
