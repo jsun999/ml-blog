@@ -2136,7 +2136,7 @@ nav .link-title a:hover {
 .image-right .splash-image,
 .image-left .splash-image {
     /* stylelint-disable function-url-quotes */
-    background-image: url("/portal/images/img_bg_1.jpg");
+    background-image: url("http://blog.jsun999.site/img_bg_1.jpg");
     /* stylelint-enable function-url-quotes */
     background-position: center center;
     background-repeat: no-repeat;
