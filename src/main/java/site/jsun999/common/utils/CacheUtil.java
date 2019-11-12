@@ -18,6 +18,10 @@ public class CacheUtil {
     public static void putObj(String cacheName,String key,Object value){
         CacheManager cacheManager = SpringContext.getBeanByType(CacheManager.class);
         Cache cache = cacheManager.getCache(cacheName);
+        if(cache==null){
+            cacheManager.addCache(cacheName);
+            cache=cacheManager.getCache(cacheName);
+        }
         Element element = new Element(key, value,3600,3600);
         cache.put(element);
         cache.flush();
@@ -26,7 +30,11 @@ public class CacheUtil {
     public static Element getObj(String cacheName,String key){
         CacheManager cacheManager = SpringContext.getBeanByType(CacheManager.class);
         Cache cache = cacheManager.getCache(cacheName);
-        return cache.get(key);
+        if(cache!=null){
+            return cache.get(key);
+        }else{
+            return null;
+        }
     }
 
     public static void deleteAll() {

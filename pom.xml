@@ -104,6 +104,12 @@
 			<artifactId>hibernate-validator</artifactId>
 		</dependency>
 
+		<!-- 添加Gson依赖 -->
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+
 		<!-- 热部署 -->
 		<dependency>
 			<groupId>org.springframework.boot</groupId>

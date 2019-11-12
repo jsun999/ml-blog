@@ -1,0 +1,96 @@
+<!doctype html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{portal/layoutNew}">
+
+<head>
+	<link rel="stylesheet" th:href="@{/portal/css/album/normalize.css}" />
+	<link rel="stylesheet" th:href="@{/portal/css/album/htmleaf-demo.css}">
+	<link rel="stylesheet" th:href="@{/portal/css/album/images-grid.css}">
+	<style type="text/css">
+		.htmleaf-content p {
+			text-align: center;
+			font-weight: bold;
+		}
+	</style>
+
+</head>
+
+<body class="home blog custom-background round-avatars" itemscope itemtype="http://schema.org/Organization">
+	<div id="main" class="content" layout:fragment="content">
+		<div id="fh5co-main">
+			<div class="container">
+				<div class="htmleaf-content">
+					<p>超过5张图片</p>
+					<div id="gallery1"></div>
+
+					<p>5张图片</p>
+					<div id="gallery2"></div>
+
+					<p>4张图片</p>
+					<div id="gallery3"></div>
+
+					<p>3张图片</p>
+					<div id="gallery4"></div>
+
+					<p>2张图片</p>
+					<div id="gallery5"></div>
+
+					<p>1张图片</p>
+					<div id="gallery6"></div>
+
+					<p>不同尺寸的图片</p>
+					<div id="gallery7"></div>
+				</div>
+			</div>
+
+		</div>
+		<script th:src="@{/portal/js/album/images-grid.js}"></script>
+		<script>
+			var images = [
+				'http://blog.jsun999.site/blog-test/%E6%B5%B7%E8%B4%BC%E7%8E%8B.jpg',
+				'http://blog.jsun999.site/blog-test/p2535294427.jpg',
+				'http://blog.jsun999.site/blog-test/%E8%8D%92%E9%87%8E%E7%94%9F%E5%AD%98.jpg',
+				'http://blog.jsun999.site/jsun-blog/p2536338132.jpg',
+				'http://blog.jsun999.site/p2542316953.jpg',
+				'http://blog.jsun999.site/p2553725407.jpg'
+			];
+
+			window.onload = function(){
+
+				$('#gallery1').imagesGrid({
+					images: images
+				});
+				$('#gallery2').imagesGrid({
+					images: images.slice(0, 5)
+				});
+				$('#gallery3').imagesGrid({
+					images: images.slice(0, 4)
+				});
+				$('#gallery4').imagesGrid({
+					images: images.slice(0, 3)
+				});
+				$('#gallery5').imagesGrid({
+					images: images.slice(0, 2)
+				});
+				$('#gallery6').imagesGrid({
+					images: images.slice(0, 1)
+				});
+				$('#gallery7').imagesGrid({
+					images: [
+						'images/diff-size/1.jpg',
+						'images/diff-size/2.jpg',
+						'images/diff-size/3.jpg',
+						'images/diff-size/4.jpg',
+						'images/diff-size/5.jpg',
+						'images/diff-size/6.jpg'
+					],
+					align: true,
+					getViewAllText: function(imgsCount) { return '查看全部图片' }
+				});
+
+			};
+		</script>
+	</div>
+
+</body>
+
+</html>

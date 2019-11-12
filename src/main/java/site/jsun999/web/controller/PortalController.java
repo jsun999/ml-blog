@@ -1,7 +1,6 @@
 package site.jsun999.web.controller;
 
 import site.jsun999.common.constant.PageConstant;
-import site.jsun999.common.constant.ParamConstant;
 import site.jsun999.common.utils.IPUtil;
 import site.jsun999.common.utils.JsonUtil;
 import site.jsun999.common.utils.MarkdownUtil;
@@ -19,7 +18,6 @@ import site.jsun999.model.Post;
 import site.jsun999.service.*;
 import site.jsun999.web.exception.GlobalException;
 import com.github.pagehelper.PageInfo;
-import com.google.code.kaptcha.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -31,10 +29,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
-import java.util.ArrayList;
-import java.util.LinkedHashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 /**
  * 博客主页相关
@@ -357,6 +352,18 @@ public class PortalController {
         model.addAttribute("aboutMe", aboutMe);
         model.addAttribute("md", MarkdownUtil.class);
         return render(model, "portal/aboutMeNew");
+    }
+
+
+    @GetMapping("/music/")
+    public String music(Model model) throws Exception {
+        return render(model, "portal/music");
+    }
+
+
+    @GetMapping("/album/")
+    public String album(Model model) throws Exception {
+        return render(model, "portal/album");
     }
 
     @GetMapping("/postList")
