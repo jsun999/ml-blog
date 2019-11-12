@@ -3,6 +3,7 @@ package site.jsun999.web.controller.admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import site.jsun999.service.PhotoAlbumService;
 
 @RestController
 @RequestMapping("/admin/cover")
