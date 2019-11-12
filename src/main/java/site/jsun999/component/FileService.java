@@ -1,5 +1,7 @@
 package site.jsun999.component;
 
+import com.qiniu.storage.Region;
+import site.jsun999.common.utils.CacheUtil;
 import site.jsun999.web.exception.GlobalException;
 import com.qiniu.common.QiniuException;
 import com.qiniu.common.Zone;
@@ -30,13 +32,16 @@ public class FileService {
     public Response upload(InputStream inputStream, String filename) throws GlobalException {
 
         // 有配置数据，但上传凭证为空
-        if (!commonMap.containsKey("upToken")) {
+        if (!commonMap.containsKey("bucketManager")) {
             // 创建七牛云组件
             createQiniuComponent();
         }
+        if(CacheUtil.getObj("qiNiuUpToken","upToken")==null){
+            getUpToken();
+        }
 
         try {
-            String upToken = (String) commonMap.get("upToken");
+            String upToken = (String)CacheUtil.getObj("qiNiuUpToken","upToken").getObjectValue();
             UploadManager uploadManager = (UploadManager) commonMap.get("uploadManager");
             // 上传
             Response response = uploadManager.put(inputStream,filename,upToken,null, null);
@@ -87,14 +92,17 @@ public class FileService {
      * 创建七牛云相关组件
      */
     private void createQiniuComponent() {
-        Configuration cfg = new Configuration(Zone.zone0());
+        Configuration cfg = new Configuration(Region.region0());
         UploadManager uploadManager = new UploadManager(cfg);
         Auth auth = Auth.create(commonMap.get("qn_accessKey").toString(), commonMap.get("qn_secretKey").toString());
         BucketManager bucketManager = new BucketManager(auth, cfg);
-        String upToken = auth.uploadToken(commonMap.get("qn_bucket").toString());
         commonMap.put("uploadManager",uploadManager);
         commonMap.put("bucketManager",bucketManager);
-        commonMap.put("upToken",upToken);
+    }
+    private void getUpToken(){
+        Auth auth = Auth.create(commonMap.get("qn_accessKey").toString(), commonMap.get("qn_secretKey").toString());
+        String upToken = auth.uploadToken(commonMap.get("qn_bucket").toString());
+        CacheUtil.putObj("qiNiuUpToken","upToken",upToken);
     }
 }
 
