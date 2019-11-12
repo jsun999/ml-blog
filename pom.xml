@@ -3,13 +3,13 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 
-	<groupId>com.extlight</groupId>
-	<artifactId>ml-blog</artifactId>
+	<groupId>site.jsun999</groupId>
+	<artifactId>jsun-blog</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>war</packaging>
 
-	<name>ML-Blog</name>
-	<description>个人博客</description>
+	<name>jsun-Blog</name>
+	<description>jsun的博客</description>
 
 	<parent>
 		<groupId>org.springframework.boot</groupId>
