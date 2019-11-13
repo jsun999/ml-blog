@@ -8,51 +8,48 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import site.jsun999.common.utils.CacheUtil;
-import site.jsun999.component.AsyncService;
 import site.jsun999.mapper.BaseMapper;
-import site.jsun999.mapper.CoverMapper;
+import site.jsun999.mapper.PhotoMapper;
 import site.jsun999.model.Category;
-import site.jsun999.model.Cover;
+import site.jsun999.model.Photo;
 import site.jsun999.service.CategoryService;
-import site.jsun999.service.CoverService;
+import site.jsun999.service.PhotoAlbumService;
 import site.jsun999.web.exception.GlobalException;
 
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-@CacheConfig(cacheNames = "coverCache")
+@CacheConfig(cacheNames = "photoCache")
 @Service
-public class PhotoAlbumServiceImpl extends BaseServiceImpl<Cover> implements CoverService {
+public class PhotoAlbumServiceImpl extends BaseServiceImpl<Photo> implements PhotoAlbumService {
 
     @Autowired
-    private CoverMapper coverMapper;
+    private PhotoMapper photoMapper;
 
     @Autowired
     private CategoryService categoryService;
 
-    @Autowired
-    private AsyncService asyncService;
 
     @Override
-    public BaseMapper<Cover> getBaseMapper() {
-        return this.coverMapper;
+    public BaseMapper<Photo> getBaseMapper() {
+        return this.photoMapper;
     }
 
     @Transactional
     @Override
-    public void save(Cover cover) throws GlobalException {
+    public void save(Photo photo) throws GlobalException {
 
-        Category category = this.categoryService.getById(cover.getCategoryId());
+        Category category = this.categoryService.getById(photo.getCategoryId());
         if (category == null) {
             throw new GlobalException(400, "该分类不存在");
         }
 
-        if(StringUtils.isEmpty(cover.getImgUrl())) {
-            cover.setImgUrl("material-" + (new Random().nextInt(30) + 1) + ".jpg");
+        if(StringUtils.isEmpty(photo.getImgUrl())) {
+            photo.setImgUrl("material-" + (new Random().nextInt(30) + 1) + ".jpg");
         }
-        cover.setCategoryName(category.getName());
-        this.coverMapper.insert(cover);
+        photo.setCategoryName(category.getName());
+        this.photoMapper.insert(photo);
         // 清理缓存
         CacheUtil.deleteAll();
     }
@@ -60,7 +57,7 @@ public class PhotoAlbumServiceImpl extends BaseServiceImpl<Cover> implements Cov
     @Transactional
     @Override
     public void delete(Integer id) {
-        this.coverMapper.deleteByPrimaryKey(id);
+        this.photoMapper.deleteByPrimaryKey(id);
 
         // 清理缓存
         CacheUtil.deleteAll();
@@ -68,22 +65,22 @@ public class PhotoAlbumServiceImpl extends BaseServiceImpl<Cover> implements Cov
 
 
     @Override
-    public List<Cover> getPyCategoryId(Integer categoryId, Integer pageNum, Integer pageSize, String title) throws GlobalException {
+    public List<Photo> getPyCategoryId(Integer categoryId, Integer pageNum, Integer pageSize, String title) throws GlobalException {
         PageHelper.startPage(pageNum, pageSize);
-        List<Cover> list = this.coverMapper.queryCoverByCategoryId(categoryId, null, title);
+        List<Photo> list = this.photoMapper.queryPhotoByCategoryId(categoryId, null, title);
         return list;
     }
 
     @Cacheable(key = "'page:' + #pageNum")
     @Override
-    public List<Cover> getListPyPage(Integer status, Integer pageNum, Integer pageSize) throws GlobalException {
+    public List<Photo> getListPyPage(Integer status, Integer pageNum, Integer pageSize) throws GlobalException {
         PageHelper.startPage(pageNum, pageSize);
-        return this.coverMapper.getList(status);
+        return this.photoMapper.getList(status);
     }
 
-    @Cacheable(key = "'cover:list' + #categoryName + ':' + #pageNum")
+    @Cacheable(key = "'Photo:list' + #categoryName + ':' + #pageNum")
     @Override
-    public List<Cover> queryByCategory(String categoryName, Integer pageNum, Integer pageSize) throws GlobalException {
+    public List<Photo> queryByCategory(String categoryName, Integer pageNum, Integer pageSize) throws GlobalException {
         Category category = this.categoryService.getCategoryByName(categoryName);
 
         if (category == null) {
@@ -91,31 +88,31 @@ public class PhotoAlbumServiceImpl extends BaseServiceImpl<Cover> implements Cov
         }
 
         PageHelper.startPage(pageNum, pageSize);
-        List<Cover> list = this.coverMapper.queryCoverByCategoryId(category.getId(), 1, null);
+        List<Photo> list = this.photoMapper.queryPhotoByCategoryId(category.getId(), 1, null);
 
         return list;
     }
 
     @Cacheable(key = "'previousInfo:' + #id")
     @Override
-    public Cover getPreviousInfo(Integer id) throws GlobalException {
-        return this.coverMapper.getPreviousInfo(id);
+    public Photo getPreviousInfo(Integer id) throws GlobalException {
+        return this.photoMapper.getPreviousInfo(id);
     }
 
     @Cacheable(key = "'nextInfo:' + #id")
     @Override
-    public Cover getNextInfo(Integer id) throws GlobalException {
-        return this.coverMapper.getNextInfo(id);
+    public Photo getNextInfo(Integer id) throws GlobalException {
+        return this.photoMapper.getNextInfo(id);
     }
 
     @Override
-    public int getCoverCount(Integer status) throws GlobalException {
-        Cover cover = null;
+    public int getPhotoCount(Integer status) throws GlobalException {
+        Photo photo = null;
         if (status != null) {
-            cover = new Cover();
-            cover.setStatus(status);
+            photo = new Photo();
+            photo.setStatus(status);
         }
-        return this.coverMapper.selectCount(cover);
+        return this.photoMapper.selectCount(photo);
     }
 
 
@@ -127,7 +124,7 @@ public class PhotoAlbumServiceImpl extends BaseServiceImpl<Cover> implements Cov
             idList.add(Integer.parseInt(id));
         }
         // 批量删除
-        this.coverMapper.deleteBatch(idList);
+        this.photoMapper.deleteBatch(idList);
         // 清理缓存
         CacheUtil.deleteAll();
     }

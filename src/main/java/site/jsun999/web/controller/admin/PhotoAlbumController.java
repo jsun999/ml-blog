@@ -6,8 +6,10 @@ import org.springframework.web.bind.annotation.RestController;
 import site.jsun999.service.PhotoAlbumService;
 
 @RestController
-@RequestMapping("/admin/cover")
+@RequestMapping("/admin/photo")
 public class PhotoAlbumController {
     @Autowired
     private PhotoAlbumService photoAlbumService;
+
+
 }

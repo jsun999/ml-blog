@@ -25,21 +25,12 @@ public class Photo {
     @Id
     private Integer id;
 
-    private String title;
-
-    private String description;
-
     @NotEmpty(message = "图片不能为空")
     private String imgUrl;
 
-    private String linkUrl;
+    private String description;
 
     private int status;
-
-    @NotNull(message = "分类不能为空")
-    private Integer categoryId;
-
-    private String categoryName;
 
     @CreateTime
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
