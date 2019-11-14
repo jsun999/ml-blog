@@ -24,6 +24,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static site.jsun999.common.constant.UserConstant.blog_prefix;
+
 /**
  * 文件上传相关
  */
@@ -92,7 +94,7 @@ public class UploadController {
                throw new GlobalException(500,"未配置七牛云参数");
             }
 
-            Response response = this.fileService.upload(file.getInputStream(), "jsun-blog/"+file.getOriginalFilename());
+            Response response = this.fileService.upload(file.getInputStream(), blog_prefix+file.getOriginalFilename());
             if (!response.isOK()) {
                 log.error("文件上传失败 -> url:{},Response:{}","/uploadfile",response);
                 throw new GlobalException(500,"文件上传失败");

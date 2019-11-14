@@ -12,7 +12,6 @@ import site.jsun999.plugin.UpdateTime;
 import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotEmpty;
-import javax.validation.constraints.NotNull;
 import java.util.Date;
 
 @Getter
