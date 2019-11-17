@@ -10,30 +10,13 @@ public interface PhotoAlbumService extends BaseService<Photo> {
 
 
     /**
-     * 通过分类ID获取Photo列表
-     * @param categoryId
-     * @param pageNum
-     * @param pageSize
-     * @param title
-     * @return
-     */
-    List<Photo> getPyCategoryId(Integer categoryId, Integer pageNum, Integer pageSize, String title) throws GlobalException;
-
-    /**
-     * 获取封面列表
+     * 获取相册列表
      * @param status 状态
      * @param pageNum
      * @param pageSize
      * @return
      */
-    List<Photo> getListPyPage(Integer status, Integer pageNum, Integer pageSize) throws GlobalException;
-
-    /**
-     * 通过分类获取文章列表
-     * @param categoryName
-     * @return
-     */
-    List<Photo> queryByCategory(String categoryName, Integer pageNum, Integer pageSize) throws GlobalException;
+    List<Photo> getListPyPage(Byte status, Integer pageNum, Integer pageSize) throws GlobalException;
 
     /**
      * 获取上一篇文章

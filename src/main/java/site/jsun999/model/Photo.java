@@ -29,7 +29,7 @@ public class Photo {
 
     private String description;
 
-    private int status;
+    private Byte status;
 
     @CreateTime
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")

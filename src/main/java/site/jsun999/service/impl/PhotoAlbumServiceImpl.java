@@ -12,6 +12,7 @@ import site.jsun999.mapper.BaseMapper;
 import site.jsun999.mapper.PhotoMapper;
 import site.jsun999.model.Category;
 import site.jsun999.model.Photo;
+import site.jsun999.model.Post;
 import site.jsun999.service.CategoryService;
 import site.jsun999.service.PhotoAlbumService;
 import site.jsun999.web.exception.GlobalException;
@@ -30,19 +31,11 @@ public class PhotoAlbumServiceImpl extends BaseServiceImpl<Photo> implements Pho
     @Autowired
     private CategoryService categoryService;
 
-    @Override
-    public List<Photo> getPyCategoryId(Integer categoryId, Integer pageNum, Integer pageSize, String title) throws GlobalException {
-        return null;
-    }
 
     @Override
-    public List<Photo> getListPyPage(Integer status, Integer pageNum, Integer pageSize) throws GlobalException {
-        return null;
-    }
-
-    @Override
-    public List<Photo> queryByCategory(String categoryName, Integer pageNum, Integer pageSize) throws GlobalException {
-        return null;
+    public List<Photo> getListPyPage(Byte status, Integer pageNum, Integer pageSize) throws GlobalException {
+        PageHelper.startPage(pageNum, pageSize);
+        return this.photoMapper.getList(status);
     }
 
     @Override
@@ -67,6 +60,6 @@ public class PhotoAlbumServiceImpl extends BaseServiceImpl<Photo> implements Pho
 
     @Override
     public BaseMapper<Photo> getBaseMapper() {
-        return null;
+        return this.photoMapper;
     }
 }

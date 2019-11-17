@@ -1,51 +1,43 @@
 $(function () {
-    postManager.init();
+    photoManager.init();
 });
 
-var postManager = {
+var photoManager = {
     myEditor: null,
     categoryId: 0,
-    title: "",
     init: function () {
-        postManager.getList();
-        postManager.getCategoryList();
-        postManager.registerEvent();
+        photoManager.getList();
+        photoManager.registerEvent();
+        photoManager.createFileComponent();
         $("#showExample").on("click",function() {
            $("#mdExample").fadeToggle("fast","linear");
         });
     },
     getList: function (pageNum) {
-        $.getJSON("/admin/post/list/"+postManager.categoryId+"/"+ (pageNum || 1),{"title":postManager.title},function (resp) {
+        $.getJSON("/admin/photoAlbum/list/"+ (pageNum || 1),function (resp) {
             if (resp.code == 200) {
                 var pageInfo = resp.data;
                 if (pageInfo.list.length > 0) {
                     var htmlArr = [];
                     for (var i=0; i< pageInfo.list.length; i++) {
-                        var post = pageInfo.list[i];
+                        var photo = pageInfo.list[i];
 
                         htmlArr.push("<tr>");
-                        htmlArr.push("<td class='mail-select'><div class='checkbox checkbox-primary'><input id='checkbox_"+post.id+"' type='checkbox'><label for='checkbox_"+post.id+"'></label> </div></td>");
-                        htmlArr.push("<td><a href='/"+post.postUrl+"' target='_blank'>"+post.title+"</a></td> ");
-                        htmlArr.push("<td>"+post.categoryName+"</td>");
-                        htmlArr.push("<td>"+(post.tags || '')+"</td>");
-                        htmlArr.push("<td>"+(post.status == 1 ? '显示' : '隐藏')+"</td>");
-                        if (post.imgUrl.indexOf("material") > -1) {
-                            htmlArr.push("<td><img src='/portal/images/random/"+post.imgUrl+"' width='30' height='30' alt=''></td> ");
-                        } else {
-                            htmlArr.push("<td><img src='"+post.imgUrl+"' width='30' height='30' alt=''></td> ");
-                        }
-                        htmlArr.push("<td>"+(post.publishDate || '')+"</td>");
-                        htmlArr.push("<td>"+post.createTime+"</td>");
-                        htmlArr.push("<td class='actions'><button type='button' class='btn btn-info waves-effect m-b-5 edit' data-id='"+post.id+"'>编辑</button>");
-                        htmlArr.push("  <button type='button' class='btn btn-danger waves-effect m-b-5 delete' data-id='"+post.id+"'>删除</button></td>");
+                        htmlArr.push("<td class='mail-select'><div class='checkbox checkbox-primary'><input id='checkbox_"+photo.id+"' type='checkbox'><label for='checkbox_"+photo.id+"'></label> </div></td>");
+                        htmlArr.push("<td>"+(photo.description || '')+"</td>");
+                        htmlArr.push("<td>"+(photo.status == 1 ? '显示' : '隐藏')+"</td>");
+                        htmlArr.push("<td><img src='"+photo.imgUrl+"' width='30' height='30' alt=''></td> ");
+                        htmlArr.push("<td>"+photo.createTime+"</td>");
+                        htmlArr.push("<td class='actions'><button type='button' class='btn btn-info waves-effect m-b-5 edit' data-id='"+photo.id+"'>编辑</button>");
+                        htmlArr.push("  <button type='button' class='btn btn-danger waves-effect m-b-5 delete' data-id='"+photo.id+"'>删除</button></td>");
                         htmlArr.push("</tr>");
 
                     }
-                    $("#postTable").find("tbody").html(htmlArr.join(""));
-                    postManager.setPageBar(pageInfo);
-                    postManager.bindClick();
+                    $("#photoTable").find("tbody").html(htmlArr.join(""));
+                    photoManager.setPageBar(pageInfo);
+                    photoManager.bindClick();
                 } else {
-                    $("#postTable").find("tbody").html("<tr><td colspan='9' align='center'>暂无数据</td></tr>");
+                    $("#photoTable").find("tbody").html("<tr><td colspan='9' align='center'>暂无数据</td></tr>");
                     $("#pageBar").html("");
                 }
             } else {
@@ -68,43 +60,43 @@ var postManager = {
             if (!pageInfo.hasPreviousPage) {
                 return;
             }
-            postManager.getList(pageInfo.pageNum - 1);
+            photoManager.getList(pageInfo.pageNum - 1);
         });
 
         $("#nextBtn").on("click",function () {
             if (!pageInfo.hasNextPage) {
                 return;
             }
-            postManager.getList(pageInfo.pageNum + 1);
+            photoManager.getList(pageInfo.pageNum + 1);
         });
     },
     bindClick: function () {
         $(".edit").on("click",function () {
             var id = $(this).data("id");
-            $.getJSON("/admin/post/get/"+id,function (resp) {
+            $.getJSON("/admin/photoAlbum/get/"+id,function (resp) {
                 if (resp.code == 200) {
 
                     for(var key in resp.data) {
                         $("#" + key).val(resp.data[key]);
                     }
 
-                    postManager.createEditor(function() {
-                        var post = resp.data;
-                        for(var key in post) {
+                    photoManager.createEditor(function() {
+                        var photo = resp.data;
+                        for(var key in photo) {
 
                             if(key == "tags") {
-                                $("#tags").tagsinput('add', post[key]);
+                                $("#tags").tagsinput('add', photo[key]);
                             } else if(key == "status") {
-                                $("#showStatus").prop('checked', post[key] == 1).change()
+                                $("#showStatus").prop('checked', photo[key] == 1).change()
                             } else {
-                                $("#" + key).val(post[key]);
+                                $("#" + key).val(photo[key]);
                             }
 
                         }
-                        postManager.myEditor.setMarkdown(post.content);
+                        photoManager.myEditor.setMarkdown(photo.content);
                     });
 
-                    postManager.createFileComponent();
+                    photoManager.createFileComponent();
 
                     $("#saveUI").modal("show");
                 } else {
@@ -127,10 +119,10 @@ var postManager = {
                 },
                 function(){
                     var id = $(that).data("id");
-                    $.post("/admin/post/delete/"+id,null,function (resp) {
+                    $.post("/admin/photoAlbum/delete/"+id,null,function (resp) {
                         if (resp.code == 200) {
                             swal("删除成功", "","success");
-                            postManager.getList();
+                            photoManager.getList();
                         } else {
                             swal("删除失败", resp.msg,"error");
                         }
@@ -141,12 +133,12 @@ var postManager = {
     registerEvent: function () {
 
         $("#checkboxAll").on("click",function () {
-            $("#postTable").find("input[type='checkbox']").prop("checked",$(this).prop("checked"));
+            $("#photoTable").find("input[type='checkbox']").prop("checked",$(this).prop("checked"));
         });
 
         $("#deletesBtn").on("click",function () {
             var idArr = [];
-            $("#postTable").find("tbody").find("input[type='checkbox']:checked").each(function (index,domEle) {
+            $("#photoTable").find("tbody").find("input[type='checkbox']:checked").each(function (index,domEle) {
                 var id = $(domEle).attr("id").split("_")[1];
                 idArr.push(id);
             });
@@ -163,11 +155,11 @@ var postManager = {
                         closeOnConfirm: false
                     },
                     function(){
-                        $.post("/admin/post/deleteBatch/"+idArr.join(","),null,function (resp) {
+                        $.photo("/admin/photo/deleteBatch/"+idArr.join(","),null,function (resp) {
                             if (resp.code == 200) {
                                 swal("删除成功", "","success");
                                 $("#checkboxAll").prop("checked",false);
-                                postManager.getList();
+                                photoManager.getList();
                             } else {
                                 swal("删除失败", resp.msg,"error");
                             }
@@ -178,18 +170,6 @@ var postManager = {
             }
         });
 
-        $("#showBtn").on("click",function () {
-
-            $("#saveUI").modal("show");
-
-            postManager.createEditor(function() {
-                $("#postForm").get(0).reset();
-                $("#tags").tagsinput('removeAll');
-                $("input[type='hidden']").val("");
-            });
-
-            postManager.createFileComponent();
-        });
 
         $("#submitBtn").on("click",function () {
             var parameter = {
@@ -200,14 +180,14 @@ var postManager = {
                 "tags": $("#tags").val(),
                 "status": ($("#showStatus").prop("checked") ? 1: 0 ),
                 "imgUrl": $("#imgUrl").val(),
-                "content": postManager.myEditor.getMarkdown()
+                "content": photoManager.myEditor.getMarkdown()
             };
 
-            $.post("/admin/post/save",parameter,function (resp) {
+            $.photo("/admin/photo/save",parameter,function (resp) {
                 if (resp.code == 200) {
                     $("#saveUI").modal("hide");
                     swal("保存成功", "","success");
-                    postManager.getList();
+                    photoManager.getList();
                 } else {
                     swal("保存失败", resp.msg,"error");
                 }
@@ -229,7 +209,7 @@ var postManager = {
             }
             var index = layer.load(1);
             $(that).prop("disabled",true);
-           $.post("/admin/post/importFiles",{"path": path},function (resp) {
+           $.photo("/admin/photo/importFiles",{"path": path},function (resp) {
                layer.close(index);
                $(that).prop("disabled",false);
                if (resp.code == 200) {
@@ -244,50 +224,14 @@ var postManager = {
 
         // 查询事件
         $("#queryBtn").on("click",function () {
-            postManager.title = $("#query").val();
-            postManager.getList();
+            photoManager.title = $("#query").val();
+            photoManager.getList();
         });
     },
-    getCategoryList: function () {
-        $.getJSON("/admin/category/listAll",function (resp) {
-           if (resp.code == 200) {
-               var htmlArr = ["<a href='javascript:void(0)' class='list-group-item no-border category active' data-id='0'><span class='fa fa-circle text-default pull-right'></span>全部</a>"];
 
-               for (var i=0; i<resp.data.length; i++) {
-                   var category = resp.data[i];
-                   htmlArr.push("<a href='javascript:void(0)' class='list-group-item no-border category' data-id='"+category.id+"'><span class='fa fa-circle "+category.color+" pull-right'></span>"+category.name+"</a>");
-               }
-
-               $("#categoryType").html(htmlArr.join(""));
-
-               var htmlArr2 = ["<option value=''>--请选择--</option>"];
-               for (var j=0; j<resp.data.length; j++) {
-                   var category2 = resp.data[j];
-                   htmlArr2.push("<option value='"+category2.id+"'>"+category2.name+"</option>");
-               }
-
-               $("#categoryId").html(htmlArr2.join(""));
-
-               $(".category").on("click",function () {
-                  if ($(this).hasClass("active") ) {
-                      return;
-                  }
-
-                  $(this).parent().children().removeClass("active");
-                  $(this).addClass("active");
-                  postManager.categoryId = $(this).data("id");
-                  postManager.getList();
-
-               });
-
-           } else {
-               swal("查询失败", resp.msg,"error");
-           }
-        });
-    },
     createEditor: function (callback) {
         $("#editorContainer").html("<div class='col-lg-12' id='my-editormd'></div>");
-        postManager.myEditor = editormd("my-editormd", {
+        photoManager.myEditor = editormd("my-editormd", {
             width   : "100%",
             height  :  document.documentElement.clientHeight - 260,
             syncScrolling : "single",
@@ -306,14 +250,12 @@ var postManager = {
         });
     },
     createFileComponent: function () {
-        $("#fileContainer").html("<div style='text-align: center;line-height: 80px;'>需要配置七牛云参数</div>");
-        $("#btnContainer").html("预览图<br><br><span id='uploadBtn' style='cursor: pointer;color: #6e8cd7;'>点击上传</span>");
-        $("#uploadBtn").dropzone({
+        $("#upload").dropzone({
             url: "/admin/uploadfile", //上传地址
             method: "POST", //方式
             addRemoveLinks: true,
-            maxFiles: 10,
-            maxFilesize: 5,
+            maxFiles: 50,
+            maxFilesize: 10,
             uploadMultiple: false,
             parallelUploads: 100,
             previewsContainer: false,
@@ -325,7 +267,7 @@ var postManager = {
                 } else {
                     swal("文件上传失败", resp.msg,"error");
                     // 重新创建，否则需要刷新页面才能继续上传文件
-                    postManager.createFileComponent();
+                    // photoManager.createFileComponent();
                 }
             }
         });
