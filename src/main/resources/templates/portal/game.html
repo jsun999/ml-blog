@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org"  xmlns:layout="http://www.ultraq.net.nz/web/thymeleaf/layout" layout:decorate="~{portal/layoutNew}">
+
+<head>
+
+</head>
+
+<body class="home blog custom-background round-avatars" itemscope itemtype="http://schema.org/Organization">
+<div id="main" class="content" layout:fragment="content">
+
+    <div id="fh5co-main">
+        <div class="fh5co-narrow-content">
+            <header class="post_header">
+                <h2 class="fh5co-heading animate-box post_title" data-animate-effect="fadeInLeft">推箱子</h2>
+            </header>
+            <div class="post-Archive">
+                <div style="width:560px; margin:5px auto;">
+                    <canvas id="canvas" width="560" height="560"></canvas>
+                    <div id="msg">第1关 移动次数: 0</div>
+                    <input type="button" value="上一关" onclick="NextLevel(-1)">
+                    <input type="button" value="下一关" onclick="NextLevel(1)">
+                    <input type="button" value="重玩本关" onclick="NextLevel(0)">
+                </div>
+            </div>
+            <div class="dddys" style="margin-top:10px; margin-bottom:25px; margin-left:250px;">
+                <p class="ysxz">
+                    <b style="font-size:16px;">推箱子 - 游戏规则</b><br>
+                    用键盘上的上、下、左、右键移动小人，把箱子全部推到小球的位置即可过关。箱子只可向前推，不能往后拉，并且小人一次只能推动一个箱子。<br>
+                </p>
+            </div>
+            <script>
+                /*<![CDATA[*/
+                var httppath= '/portal/images/game/boxgame/';
+                /*]]>*/
+            </script>
+            <script th:src="@{/portal/js/game/boxgame/boxgame.js}"></script>
+            <script th:src="@{/portal/js/game/boxgame/mapdata100.js}"></script>
+            <script type="text/javascript">
+                $(document).keydown(function(event){
+                    doKeyDown(event)
+                });
+            </script>
+        </div>
+    </div>
+
+</div>
+
+</body>
+
+</html>

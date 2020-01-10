@@ -360,6 +360,10 @@ public class PortalController {
         return render(model, "portal/music");
     }
 
+    @GetMapping(value = "/game/")
+    public String game(Model model) throws Exception {
+        return render(model, "portal/game");
+    }
 
     @GetMapping("/album/")
     public String album(Model model) throws Exception {
