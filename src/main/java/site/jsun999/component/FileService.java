@@ -29,14 +29,15 @@ public class FileService {
      * @return
      */
     public Response upload(InputStream inputStream, String filename) throws GlobalException {
-
-        // 有配置数据，但上传凭证为空
-        if (!commonMap.containsKey("bucketManager")) {
-            // 创建七牛云组件
-            createQiniuComponent();
-        }
-        if(CacheUtil.getObj("qiNiuUpToken","upToken")==null){
-            getUpToken();
+        synchronized (this){
+            // 有配置数据，但上传凭证为空
+            if (!commonMap.containsKey("bucketManager")) {
+                // 创建七牛云组件
+                createQiniuComponent();
+            }
+            if(CacheUtil.getObj("qiNiuUpToken","upToken")==null){
+                getUpToken();
+            }
         }
 
         try {
