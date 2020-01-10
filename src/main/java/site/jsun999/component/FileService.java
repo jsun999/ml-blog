@@ -4,7 +4,6 @@ import com.qiniu.storage.Region;
 import site.jsun999.common.utils.CacheUtil;
 import site.jsun999.web.exception.GlobalException;
 import com.qiniu.common.QiniuException;
-import com.qiniu.common.Zone;
 import com.qiniu.http.Response;
 import com.qiniu.storage.BucketManager;
 import com.qiniu.storage.Configuration;

@@ -145,6 +145,11 @@
 			<version>1.2.5</version>
 		</dependency>
 
+		<dependency>
+			<groupId>com.google.code.gson</groupId>
+			<artifactId>gson</artifactId>
+		</dependency>
+
 		<!-- 通用 Mapper -->
 		<dependency>
 			<groupId>tk.mybatis</groupId>
