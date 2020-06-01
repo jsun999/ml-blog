@@ -370,6 +370,11 @@ public class PortalController {
         return render(model, "portal/album");
     }
 
+    @GetMapping("/music/landing.html")
+    public String landing(Model model) throws Exception {
+        return render(model, "landing");
+    }
+
     @GetMapping("/postList")
     @ResponseBody
     public Result postList() throws Exception{

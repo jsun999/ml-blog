@@ -32,6 +32,7 @@ public class SpringmvcConfiguration implements WebMvcConfigurer {
         registry.addViewController("/admin/aboutMe").setViewName("admin/aboutMe");
         registry.addViewController("/admin/cover").setViewName("admin/cover");
         registry.addViewController("/admin/photoAlbum").setViewName("admin/photoAlbum");
+        registry.addViewController("/admin/music").setViewName("admin/music");
     }
 
     @Bean

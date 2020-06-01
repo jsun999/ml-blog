@@ -1029,8 +1029,9 @@ nav .link-title a:hover {
     width: 102%;
     z-index: 0; }
 
-.image-left .outer-wrap {
-    margin-left: 30%; }
+/*.image-left .outer-wrap {*/
+/*    margin-left: 30%; */
+/*}*/
 
 .centered-content-wrap {
     padding: 0 20px;
