@@ -1,109 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="site.jsun999.mapper.MusicMapper">
-  <resultMap id="BaseResultMap" type="site.jsun999.model.Music">
-    <result column="t_music_id" jdbcType="INTEGER" property="id" />
-    <result column="t_music_type" jdbcType="VARCHAR" property="type" />
-    <result column="t_music_link" jdbcType="VARCHAR" property="link" />
-    <result column="t_music_songid" jdbcType="VARCHAR" property="songid" />
-    <result column="t_music_name" jdbcType="VARCHAR" property="name" />
-    <result column="t_music_author" jdbcType="VARCHAR" property="author" />
-    <result column="t_music_music" jdbcType="VARCHAR" property="music" />
-    <result column="t_music_pic" jdbcType="VARCHAR" property="pic" />
-    <result column="t_music_create_time" jdbcType="TIMESTAMP" property="create_time" />
-    <result column="t_music_update_time" jdbcType="TIMESTAMP" property="update_time" />
-  </resultMap>
-  <sql id="Example_Where_Clause">
-    <where>
-      <foreach collection="oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Update_By_Example_Where_Clause">
-    <where>
-      <foreach collection="example.oredCriteria" item="criteria" separator="or">
-        <if test="criteria.valid">
-          <trim prefix="(" prefixOverrides="and" suffix=")">
-            <foreach collection="criteria.criteria" item="criterion">
-              <choose>
-                <when test="criterion.noValue">
-                  and ${criterion.condition}
-                </when>
-                <when test="criterion.singleValue">
-                  and ${criterion.condition} #{criterion.value}
-                </when>
-                <when test="criterion.betweenValue">
-                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
-                </when>
-                <when test="criterion.listValue">
-                  and ${criterion.condition}
-                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
-                    #{listItem}
-                  </foreach>
-                </when>
-              </choose>
-            </foreach>
-          </trim>
-        </if>
-      </foreach>
-    </where>
-  </sql>
-  <sql id="Base_Column_List">
-    t_music.id as t_music_id, t_music.`type` as `t_music_type`, t_music.link as t_music_link, 
-    t_music.songid as t_music_songid, t_music.`name` as `t_music_name`, t_music.author as t_music_author, 
-    t_music.music as t_music_music, t_music.pic as t_music_pic, t_music.create_time as t_music_create_time, 
-    t_music.update_time as t_music_update_time
-  </sql>
-  <select id="selectByExample" parameterType="generate.MusicExample" resultMap="BaseResultMap">
-    select
-    <if test="distinct">
-      distinct
-    </if>
-    <include refid="Base_Column_List" />
-    from t_music t_music
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-    <if test="orderByClause != null">
-      order by ${orderByClause}
-    </if>
-  </select>
-  <delete id="deleteByExample" parameterType="generate.MusicExample">
-    delete from t_music t_music
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </delete>
+
   <insert id="insert" keyColumn="id" keyProperty="id" parameterType="site.jsun999.model.Music" useGeneratedKeys="true">
-    insert into t_music (`type`, link, songid, 
-      `name`, author, music, 
+    insert into t_music (`type`, link, songid,
+      `name`, author, music,
       pic, create_time, update_time
       )
-    values (#{type,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, #{songid,jdbcType=VARCHAR}, 
-      #{name,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{music,jdbcType=VARCHAR}, 
+    values (#{type,jdbcType=VARCHAR}, #{link,jdbcType=VARCHAR}, #{songid,jdbcType=VARCHAR},
+      #{name,jdbcType=VARCHAR}, #{author,jdbcType=VARCHAR}, #{music,jdbcType=VARCHAR},
       #{pic,jdbcType=VARCHAR}, #{create_time,jdbcType=TIMESTAMP}, #{update_time,jdbcType=TIMESTAMP}
       )
   </insert>
@@ -168,64 +73,5 @@
       </if>
     </trim>
   </insert>
-  <select id="countByExample" parameterType="generate.MusicExample" resultType="java.lang.Long">
-    select count(*) from t_music t_music
-    <if test="_parameter != null">
-      <include refid="Example_Where_Clause" />
-    </if>
-  </select>
-  <update id="updateByExampleSelective" parameterType="map">
-    update t_music t_music
-    <set>
-      <if test="record.id != null">
-        t_music.id = #{record.id,jdbcType=INTEGER},
-      </if>
-      <if test="record.type != null">
-        t_music.`type` = #{record.type,jdbcType=VARCHAR},
-      </if>
-      <if test="record.link != null">
-        t_music.link = #{record.link,jdbcType=VARCHAR},
-      </if>
-      <if test="record.songid != null">
-        t_music.songid = #{record.songid,jdbcType=VARCHAR},
-      </if>
-      <if test="record.name != null">
-        t_music.`name` = #{record.name,jdbcType=VARCHAR},
-      </if>
-      <if test="record.author != null">
-        t_music.author = #{record.author,jdbcType=VARCHAR},
-      </if>
-      <if test="record.music != null">
-        t_music.music = #{record.music,jdbcType=VARCHAR},
-      </if>
-      <if test="record.pic != null">
-        t_music.pic = #{record.pic,jdbcType=VARCHAR},
-      </if>
-      <if test="record.create_time != null">
-        t_music.create_time = #{record.create_time,jdbcType=TIMESTAMP},
-      </if>
-      <if test="record.update_time != null">
-        t_music.update_time = #{record.update_time,jdbcType=TIMESTAMP},
-      </if>
-    </set>
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
-  <update id="updateByExample" parameterType="map">
-    update t_music t_music
-    set t_music.id = #{record.id,jdbcType=INTEGER},
-      t_music.`type` = #{record.type,jdbcType=VARCHAR},
-      t_music.link = #{record.link,jdbcType=VARCHAR},
-      t_music.songid = #{record.songid,jdbcType=VARCHAR},
-      t_music.`name` = #{record.name,jdbcType=VARCHAR},
-      t_music.author = #{record.author,jdbcType=VARCHAR},
-      t_music.music = #{record.music,jdbcType=VARCHAR},
-      t_music.pic = #{record.pic,jdbcType=VARCHAR},
-      t_music.create_time = #{record.create_time,jdbcType=TIMESTAMP},
-      t_music.update_time = #{record.update_time,jdbcType=TIMESTAMP}
-    <if test="_parameter != null">
-      <include refid="Update_By_Example_Where_Clause" />
-    </if>
-  </update>
+
 </mapper>
