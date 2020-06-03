@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.*;
 import site.jsun999.aspect.SysLog;
 import site.jsun999.common.constant.PageConstant;
 import site.jsun999.common.vo.Result;
-import site.jsun999.model.Category;
-import site.jsun999.service.CategoryService;
+import site.jsun999.model.Music;
+import site.jsun999.service.MusicService;
 import site.jsun999.web.exception.GlobalException;
 
 import javax.validation.Valid;
@@ -21,7 +21,7 @@ import java.util.List;
 public class MusicController {
 
     @Autowired
-    private CategoryService categoryService;
+    private MusicService musicService;
 
     /**
      * 分页列表
@@ -31,7 +31,7 @@ public class MusicController {
     @GetMapping("/list/{pageNum}")
     public Result list(@PathVariable Integer pageNum) {
         try {
-            List<Category> list = this.categoryService.getPyPage(pageNum, PageConstant.PAGE_SIZE);
+            List<Music> list = this.musicService.getPyPage(pageNum, PageConstant.PAGE_SIZE);
             return Result.success(new PageInfo<>(list,10));
         } catch (Exception e) {
             throw  new GlobalException(500,e.getMessage());
@@ -41,7 +41,7 @@ public class MusicController {
     @GetMapping("/listAll")
     public Result listAll() {
         try {
-            List<Category> list = this.categoryService.getList();
+            List<Music> list = this.musicService.getList();
             return Result.success(list);
         } catch (Exception e) {
             throw  new GlobalException(500,e.getMessage());
@@ -56,8 +56,8 @@ public class MusicController {
     @GetMapping("/get/{id}")
     public Result get(@PathVariable Integer id) {
         try {
-            Category category = this.categoryService.getById(id);
-            return Result.success(category);
+            Music music = this.musicService.getById(id);
+            return Result.success(music);
         } catch (Exception e) {
             throw  new GlobalException(500,e.getMessage());
         }
@@ -65,17 +65,17 @@ public class MusicController {
 
     /**
      * 保存
-     * @param category
+     * @param music
      * @return
      */
     @SysLog("保存目录")
     @PostMapping("/save")
-    public Result save(@Valid Category category) {
+    public Result save(@Valid Music music) {
         try {
-            if (category.getId() == null || category.getId() == 0) {
-                this.categoryService.save(category);
+            if (music.getId() == null || music.getId() == 0) {
+                this.musicService.save(music);
             } else {
-                this.categoryService.update(category);
+                this.musicService.update(music);
             }
             return Result.success();
         } catch (Exception e) {
@@ -93,7 +93,7 @@ public class MusicController {
     @PostMapping("/delete/{id}")
     public Result delete(@PathVariable Integer id) {
         try {
-            this.categoryService.delete(id);
+            this.musicService.delete(id);
             return Result.success();
         } catch (Exception e) {
             throw  new GlobalException(500,e.getMessage());
