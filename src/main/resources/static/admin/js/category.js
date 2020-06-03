@@ -43,6 +43,7 @@ var categoryManager = {
                         var category = pageInfo.list[i];
                         htmlArr.push("<tr>");
                         htmlArr.push("<td>"+(i+1)+"</td>");
+                        htmlArr.push("<td>"+category.type+"</td>");
                         htmlArr.push("<td>"+category.name+"</td>");
                         htmlArr.push("<td>"+category.descr+"</td>");
                         htmlArr.push("<td><span class='fa fa-circle "+category.color+"'></td>");

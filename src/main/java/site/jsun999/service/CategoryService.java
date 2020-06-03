@@ -26,4 +26,8 @@ public interface CategoryService extends BaseService<Category> {
      * @return
      */
     List<Map<String,Object>> getCategoryList();
+
+    List<Category> getList(String type);
+
+    List<Category> getPyPage(Integer pageNum, Integer pageSize);
 }

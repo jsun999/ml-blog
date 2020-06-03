@@ -98,12 +98,15 @@ public class CategoryServiceImpl extends BaseServiceImpl<Category> implements Ca
     }
 
     @Override
-    public List<Category> getPyPage(Integer pageNum, Integer pageSize) throws GlobalException {
+    public List<Category> getList(String type) {
+        Category category = new Category();
+        category.setType(type);
+        return this.categoryMapper.select(category);
+    }
 
-        Example example = new Example(Category.class);
-        example.orderBy("sort").asc();
-
+    @Override
+    public List<Category> getPyPage(Integer pageNum, Integer pageSize) {
         PageHelper.startPage(pageNum,pageSize);
-        return this.categoryMapper.selectByExample(example);
+        return this.getList(null);
     }
 }

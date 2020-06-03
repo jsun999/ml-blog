@@ -19,7 +19,6 @@ import java.util.List;
 import java.util.Map;
 import java.util.Random;
 
-@CacheConfig(cacheNames = "musicCache")
 @Service
 public class MusicServiceImpl extends BaseServiceImpl<Music> implements MusicService {
 
@@ -41,21 +40,18 @@ public class MusicServiceImpl extends BaseServiceImpl<Music> implements MusicSer
     @Override
     public void save(Music music) throws GlobalException {
         this.musicMapper.insert(music);
-        CacheUtil.deleteByName("musicCache");
     }
 
     @Transactional(rollbackFor = GlobalException.class)
     @Override
     public void update(Music music) throws GlobalException {
         this.musicMapper.updateByPrimaryKeySelective(music);
-        CacheUtil.deleteByName("musicCache");
     }
 
     @Transactional(rollbackFor = GlobalException.class)
     @Override
     public void delete(Integer id) throws GlobalException {
         this.musicMapper.deleteByPrimaryKey(id);
-        CacheUtil.deleteByName("musicCache");
     }
 
     @Override

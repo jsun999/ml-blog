@@ -38,10 +38,10 @@ public class CategoryController {
         }
     }
 
-    @GetMapping("/listAll")
-    public Result listAll() {
+    @GetMapping("/listAll/{type}")
+    public Result listAll(@PathVariable String type) {
         try {
-            List<Category> list = this.categoryService.getList();
+            List<Category> list = this.categoryService.getList(type);
             return Result.success(list);
         } catch (Exception e) {
             throw  new GlobalException(500,e.getMessage());

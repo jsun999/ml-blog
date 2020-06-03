@@ -51,11 +51,12 @@
                         </div>
                     </div>
                     <div class="table-responsive">
-                        <table class="table table-hover mails" id="categoryTable">
+                        <table class="table table-hover mails" id="musicTable">
                             <thead>
                             <tr>
                                 <th>#</th>
                                 <th>type</th>
+                                <th>album</th>
                                 <th>link</th>
                                 <th>songid</th>
                                 <th>name</th>
@@ -86,18 +87,20 @@
                     <h4 class="modal-title" id="myModalLabel">添加音乐</h4>
                 </div>
                 <div class="modal-body">
-                    <form class="form-horizontal" role="form" id="categoryForm">
+                    <form class="form-horizontal" role="form" id="musicForm">
                         <input type="hidden" id="id" name="id">
                         <div class="form-group">
                             <label for="link" class="col-sm-3 control-label">* 链接</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="link" name="name" placeholder="链接">
+                                <input type="text" class="form-control" id="link" name="link" placeholder="链接">
                             </div>
                         </div>
                         <div class="form-group">
                             <label for="album" class="col-sm-3 control-label">歌单</label>
                             <div class="col-sm-9">
-                                <input type="text" class="form-control" id="album" name="name" placeholder="歌单">
+                                <select id="album" name="album" class="form-control">
+
+                                </select>
                             </div>
                         </div>
                     </form>

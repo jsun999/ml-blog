@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
+import site.jsun999.plugin.UpdateTime;
 
 import javax.persistence.Id;
 import javax.persistence.Table;
@@ -35,7 +36,7 @@ public class Param {
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date createTime;
 
-    @CreateTime
+    @UpdateTime
     @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
     private Date updateTime;
 }

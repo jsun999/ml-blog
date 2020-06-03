@@ -5,7 +5,7 @@ $(function() {
 var musicManager = {
     init: function () {
         musicManager.getList();
-
+        musicManager.getCategoryList();
         $("#showBtn").on("click",function () {
             $("#musicForm").get(0).reset();
             $("input[type='hidden']").val("");
@@ -33,6 +33,42 @@ var musicManager = {
         });
 
     },
+    getCategoryList: function () {
+        $.getJSON("/admin/category/listAll/music",function (resp) {
+            if (resp.code == 200) {
+                var htmlArr = ["<a href='javascript:void(0)' class='list-group-item no-border category active' data-id='0'><span class='fa fa-circle text-default pull-right'></span>全部</a>"];
+
+                // for (var i=0; i<resp.data.length; i++) {
+                //     var category = resp.data[i];
+                //     htmlArr.push("<a href='javascript:void(0)' class='list-group-item no-border category' data-id='"+category.id+"'><span class='fa fa-circle "+category.color+" pull-right'></span>"+category.name+"</a>");
+                // }
+                //
+                // $("#categoryType").html(htmlArr.join(""));
+
+                var htmlArr2 = ["<option value=''>--请选择--</option>"];
+                for (var j=0; j<resp.data.length; j++) {
+                    var category2 = resp.data[j];
+                    htmlArr2.push("<option value='"+category2.id+"'>"+category2.name+"</option>");
+                }
+
+                $("#album").html(htmlArr2.join(""));
+
+                $(".category").on("click",function () {
+                    if ($(this).hasClass("active") ) {
+                        return;
+                    }
+
+                    $(this).parent().children().removeClass("active");
+                    $(this).addClass("active");
+                    postManager.categoryId = $(this).data("id");
+                    postManager.getList();
+
+                });
+            } else {
+                swal("查询失败", resp.msg,"error");
+            }
+        });
+    },
     getList: function (pageNum) {
         $.getJSON("/admin/music/list/" + (pageNum || 1),function(resp) {
             if (resp.code == 200) {
@@ -43,11 +79,14 @@ var musicManager = {
                         var music = pageInfo.list[i];
                         htmlArr.push("<tr>");
                         htmlArr.push("<td>"+(i+1)+"</td>");
+                        htmlArr.push("<td>"+music.type+"</td>");
+                        htmlArr.push("<td>"+music.album+"</td>");
+                        htmlArr.push("<td>"+music.link+"</td>");
+                        htmlArr.push("<td>"+music.songid+"</td>");
                         htmlArr.push("<td>"+music.name+"</td>");
-                        htmlArr.push("<td>"+music.descr+"</td>");
-                        htmlArr.push("<td><span class='fa fa-circle "+music.color+"'></td>");
-                        htmlArr.push("<td><img src='"+music.imgUrl+"' alt='' width='32' height='32'></td>");
-                        htmlArr.push("<td>"+music.sort+"</td>");
+                        htmlArr.push("<td>"+music.author+"</td>");
+                        htmlArr.push("<td>"+music.music+"</td>");
+                        htmlArr.push("<td>"+music.pic+"</td>");
                         htmlArr.push("<td class='actions'><button type='button' class='btn btn-info waves-effect m-b-5 edit' data-id='"+music.id+"'>编辑</button>");
                         htmlArr.push("  <button type='button' class='btn btn-danger waves-effect m-b-5 delete' data-id='"+music.id+"'>删除</button></td>");
                         htmlArr.push("</tr>");

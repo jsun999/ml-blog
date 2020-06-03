@@ -1,13 +1,15 @@
 package site.jsun999.model;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
-import javax.persistence.Column;
-import javax.persistence.GeneratedValue;
+import java.util.Date;
 import javax.persistence.Id;
 import javax.persistence.Table;
+import javax.validation.constraints.NotEmpty;
+
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Data;
-import org.hibernate.validator.constraints.NotEmpty;
+import site.jsun999.plugin.CreateTime;
+import site.jsun999.plugin.UpdateTime;
 
 /**
  * t_music
@@ -16,11 +18,12 @@ import org.hibernate.validator.constraints.NotEmpty;
 @Table(name="t_music")
 @Data
 public class Music implements Serializable {
-    @GeneratedValue(generator = "JDBC")
+    @Id
     private Integer id;
 
     private String type;
 
+    @NotEmpty
     private String link;
 
     private String songid;
@@ -33,9 +36,15 @@ public class Music implements Serializable {
 
     private String pic;
 
-    private LocalDateTime create_time;
+    private String album;
 
-    private LocalDateTime update_time;
+    @CreateTime
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date create_time;
+
+    @UpdateTime
+    @JsonFormat(timezone = "GMT+8", pattern = "yyyy-MM-dd HH:mm:ss")
+    private Date update_time;
 
     private static final long serialVersionUID = 1L;
 }

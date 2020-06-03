@@ -22,7 +22,6 @@ var postManager = {
                     var htmlArr = [];
                     for (var i=0; i< pageInfo.list.length; i++) {
                         var post = pageInfo.list[i];
-
                         htmlArr.push("<tr>");
                         htmlArr.push("<td class='mail-select'><div class='checkbox checkbox-primary'><input id='checkbox_"+post.id+"' type='checkbox'><label for='checkbox_"+post.id+"'></label> </div></td>");
                         htmlArr.push("<td><a href='/"+post.postUrl+"' target='_blank'>"+post.title+"</a></td> ");
@@ -249,7 +248,7 @@ var postManager = {
         });
     },
     getCategoryList: function () {
-        $.getJSON("/admin/category/listAll",function (resp) {
+        $.getJSON("/admin/category/listAll/post",function (resp) {
            if (resp.code == 200) {
                var htmlArr = ["<a href='javascript:void(0)' class='list-group-item no-border category active' data-id='0'><span class='fa fa-circle text-default pull-right'></span>全部</a>"];
 
