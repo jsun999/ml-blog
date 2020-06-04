@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 import site.jsun999.common.utils.CacheUtil;
+import site.jsun999.common.vo.MusicVo;
 import site.jsun999.mapper.BaseMapper;
 import site.jsun999.mapper.MusicMapper;
 import site.jsun999.model.Music;
@@ -58,5 +59,10 @@ public class MusicServiceImpl extends BaseServiceImpl<Music> implements MusicSer
     public List<Music> getPyPage(Integer pageNum, Integer pageSize) throws GlobalException {
         PageHelper.startPage(pageNum,pageSize);
         return this.musicMapper.selectAll();
+    }
+
+    @Override
+    public List<MusicVo> getList(String album) {
+        return this.musicMapper.selectByAlbum(album);
     }
 }

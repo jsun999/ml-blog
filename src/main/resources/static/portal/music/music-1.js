@@ -7,15 +7,15 @@ const player = new APlayer({
     theme: '#ad7a86',
     order: 'list',
     audio: [{
-        name: 'Venice Rooftops',
-        artist: 'Jesper Kyd',
-        url: 'http://m701.music.126.net/20200531015744/29871ca00f14e1b49e23fd2f72413da0/jdymusic/obj/w5zDlMODwrDDiGjCn8Ky/2053077612/8ddf/470b/f01e/e9030dad482d27b2daba4ea6ff71c54e.mp3',
+        name: '万有引力',
+        artist: 'Fyy',
+        url: 'http://120.25.235.181:51213/Fyy - 万有引力.mp3',
         cover: './music/cover/fyy.jpg',
         theme: '#ebd0c2'
-    },{
-        name: 'Venice Rooftops (SCV mix)',
-        artist: 'Jesper Kyd',
-        url: 'http://m10.music.126.net/20200601232914/f1956f3f53b11edc1d235134336850f3/ymusic/5de3/e857/c19e/bfc56a86dd391c010ea5dbd301f35da4.mp3',
+    }, {
+        name: '莫问归期',
+        artist: '蒋雪儿',
+        url: 'http://120.25.235.181:51213/蒋雪儿 - 莫问归期.mp3',
         cover: './music/cover/jiangxueer.jpg',
         theme: '#ebd0c2'
     },{

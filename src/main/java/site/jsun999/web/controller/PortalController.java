@@ -5,16 +5,10 @@ import site.jsun999.common.utils.IPUtil;
 import site.jsun999.common.utils.JsonUtil;
 import site.jsun999.common.utils.MarkdownUtil;
 import site.jsun999.common.utils.ParamUtil;
-import site.jsun999.common.vo.GeetestVO;
-import site.jsun999.common.vo.PageVo;
-import site.jsun999.common.vo.PostVo;
-import site.jsun999.common.vo.Result;
+import site.jsun999.common.vo.*;
 import site.jsun999.component.GeetestService;
 import site.jsun999.component.LuceneService;
-import site.jsun999.model.AboutMe;
-import site.jsun999.model.Comment;
-import site.jsun999.model.Cover;
-import site.jsun999.model.Post;
+import site.jsun999.model.*;
 import site.jsun999.service.*;
 import site.jsun999.web.exception.GlobalException;
 import com.github.pagehelper.PageInfo;
@@ -51,6 +45,8 @@ public class PortalController {
     private GeetestService geetestService;
     @Autowired
     private CoverService coverService;
+    @Autowired
+    private MusicService musicService;
     /**
      * 首页列表
      *
@@ -370,9 +366,15 @@ public class PortalController {
         return render(model, "portal/album");
     }
 
-    @GetMapping("/music/landing.html")
-    public String landing(Model model) throws Exception {
-        return render(model, "landing");
+    @GetMapping("/musicAll/{album}")
+    @ResponseBody
+    public Result listAll(@PathVariable String album) {
+        try {
+            List<MusicVo> list = this.musicService.getList(album);
+            return Result.success(list);
+        } catch (Exception e) {
+            throw  new GlobalException(500,e.getMessage());
+        }
     }
 
     @GetMapping("/postList")

@@ -92,7 +92,8 @@ public class HttpClientUtil {
                 .build();
         // 创建 http 请求
         HttpPost httpPost = new HttpPost(url);
-
+        httpPost.addHeader("Content-Type", "application/x-www-form-urlencoded");
+        httpPost.addHeader("X-Requested-With", "XMLHttpRequest");
         // 设置参数
         if (paramMap != null && !paramMap.isEmpty()) {
             List<NameValuePair> formparams = new ArrayList<>();

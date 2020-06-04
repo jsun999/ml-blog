@@ -16,6 +16,22 @@ var musicManager = {
         });
 
         $("#submitBtn").on("click",function () {
+            // var form = new FormData();
+            // form.append("music_input",$("#link").val());
+            // form.append("music_filter","url");
+            // form.append("music_filter","_");
+            // $.ajax({
+            //     url:"http://music.xf1433.com/",
+            //     type:"post",
+            //     data:form,
+            //     processData:false,
+            //     contentType:false,
+            //     success:function(data){
+            //         window.clearInterval(timer);
+            //         console.log("------------")
+            //         console.log(data);
+            //     }
+            // });
            $.post("/admin/music/save",$("#musicForm").serialize(),function (resp) {
                if (resp.code == 200) {
                    $("#saveUI").modal("hide");
@@ -48,7 +64,7 @@ var musicManager = {
                 var htmlArr2 = ["<option value=''>--请选择--</option>"];
                 for (var j=0; j<resp.data.length; j++) {
                     var category2 = resp.data[j];
-                    htmlArr2.push("<option value='"+category2.id+"'>"+category2.name+"</option>");
+                    htmlArr2.push("<option value='"+category2.name+"'>"+category2.name+"</option>");
                 }
 
                 $("#album").html(htmlArr2.join(""));

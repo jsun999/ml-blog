@@ -3,4 +3,8 @@
 <mapper namespace="site.jsun999.mapper.MusicMapper">
 
 
+    <select id="selectByAlbum" resultType="site.jsun999.common.vo.MusicVo">
+        select name,author as artist,music as url,pic as cover from
+        t_music where album = #{album}
+    </select>
 </mapper>
