@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonObject;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.scheduling.annotation.EnableScheduling;
@@ -18,15 +19,17 @@ import java.util.Map;
 
 @Configuration      //1.主要用于标记配置类，兼备Component的效果。
 @EnableScheduling   // 2.开启定时任务
+@Slf4j
 public class StaticScheduleTask {
 
     @Autowired
     MusicService musicService;
 
     //3.添加定时任务每小时
-    @Scheduled(cron = "0 0 * * * ?")
+    @Scheduled(cron = "0 */30 * * * ?")
     //@Scheduled(fixedRate=5000)
     private void configureTasks() {
+        log.info("music task start .....");
         List<Music> list = musicService.getList();
         list.forEach(a -> {
             Map<String, Object> map = new HashMap<>();
@@ -49,5 +52,6 @@ public class StaticScheduleTask {
             }
             this.musicService.update(a);
         });
+        log.info("music task end .....");
     }
 }
