@@ -23,9 +23,8 @@ public class StaticScheduleTask {
     @Autowired
     MusicService musicService;
 
-    //3.添加定时任务
-    @Scheduled(cron = "0 0 0 * * ?")
-    //或直接指定时间间隔，例如：5秒
+    //3.添加定时任务每小时
+    @Scheduled(cron = "0 0 * * * ?")
     //@Scheduled(fixedRate=5000)
     private void configureTasks() {
         List<Music> list = musicService.getList();
